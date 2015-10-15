@@ -5,17 +5,17 @@ import java.util.ArrayList;
 public class Area {
 
 	private String name;
-	private ArrayList<Vertice> verticesList;
-	private ArrayList<Streets> streetsList;
-	private ArrayList<Bridges> bridgesList;
+	private ArrayList<Vertex> verticesList;
+	private ArrayList<Street> streetsList;
+	private ArrayList<Bridge> bridgesList;
 	private int width;
 	private int height;
 	
 	public Area(){
 		name = "Default";
-		verticesList = new ArrayList<Vertice>();
-		streetsList = new ArrayList<Streets>();
-		bridgesList = new ArrayList<Bridges>();
+		verticesList = new ArrayList<Vertex>();
+		streetsList = new ArrayList<Street>();
+		bridgesList = new ArrayList<Bridge>();
 		
 	}
 
@@ -25,15 +25,15 @@ public class Area {
 		return name;
 	}
 	
-	public ArrayList<Vertice> getVerticesList() {
+	public ArrayList<Vertex> getVerticesList() {
 		return verticesList;
 	}
 
-	public ArrayList<Streets> getStreetsList() {
+	public ArrayList<Street> getStreetsList() {
 		return streetsList;
 	}
 	
-	public ArrayList<Bridges> getBridgesList() {
+	public ArrayList<Bridge> getBridgesList() {
 		return bridgesList;
 	}
 
@@ -42,15 +42,15 @@ public class Area {
 		this.name = _name;
 	}
 
-	public void setMyVerticesList(ArrayList<Vertice> _verticesList) {
+	public void setMyVerticesList(ArrayList<Vertex> _verticesList) {
 		this.verticesList = _verticesList;
 	}
 
-	public void setMyStreetsList(ArrayList<Streets> _streetsList) {
+	public void setMyStreetsList(ArrayList<Street> _streetsList) {
 		this.streetsList = _streetsList;
 	}
 
-	public void setMyBridgesList(ArrayList<Bridges> _bridgesList) {
+	public void setMyBridgesList(ArrayList<Bridge> _bridgesList) {
 		this.bridgesList = _bridgesList;
 	}
 
