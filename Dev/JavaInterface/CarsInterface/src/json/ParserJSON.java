@@ -104,20 +104,17 @@ public class ParserJSON {
 					json3 = (Map)parser.parse(entry2.getValue().toString());
 					
 					String tmpWeight = json2.get("weight").toString();
-					tmpArea.
+					//tmpArea.
 					
 				}
 				
-				Carte.add(new cellTypes(entry.getKey().toString(),Boolean.valueOf(json2.get("causeDeath").toString()),
-						Boolean.valueOf(json2.get("isAccessible").toString()),tmpRep));
+				//Carte.add(new cellTypes(entry.getKey().toString(),Boolean.valueOf(json2.get("causeDeath").toString()),
+				//Boolean.valueOf(json2.get("isAccessible").toString()),tmpRep));
 
 
 			}
 
 
-		}catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,9 +125,9 @@ public class ParserJSON {
 
 	}
 
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		ParserJSON MyParser = new ParserJSON("toto");
 		MyParser.FrameParsing();
-	}
+	}*/
 
 }
