@@ -8,6 +8,8 @@ public class Area {
 	private ArrayList<Vertice> MyVerticesList;
 	private ArrayList<Streets> MyStreetsList;
 	private ArrayList<Bridges> MyBridgesList;
+	private int width;
+	private int height;
 	
 	public Area(){
 		MyName = "Default";
@@ -50,6 +52,22 @@ public class Area {
 
 	public void setMyBridgesList(ArrayList<Bridges> myBridgesList) {
 		MyBridgesList = myBridgesList;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}	
 	
 }
