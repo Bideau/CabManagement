@@ -26,6 +26,7 @@ WebSocketClient client;
 int customers;
 boolean cabState;
 int distanceTravelled;
+aJsonObject *answer;
 
 /*
  * Cab status LCD refresher
@@ -161,15 +162,21 @@ void loop() {
     lcdKey = read_LCD_buttons();
     switch (lcdKey){
       case btnRIGHT:{
-        //TODO
         // Transform decline into JSON
+        answer=aJson.createObject();
+        aJson.addItemToObject(answer, "answer", aJson.createString("false"));
+
         // Send decline
+        client.send(anwser->valuestring);
         break;
       }
       case btnLEFT:{
-        //TODO
         // Transform accept into JSON
+        answer=aJson.createObject();
+        aJson.addItemToObject(answer, "answer", aJson.createString("true"));
+        
         // Send accept
+        client.send(anwser->valuestring);
         break;
       }
       default:{
