@@ -2,60 +2,60 @@ package structures;
 
 public class Streets {
 
-	private String MyStreetName;
-	private Vertice MyFirstVertice;
-	private Vertice MySecondVertice;
-	private boolean OneWay;
+	private String streetName;
+	private Vertice firstVertice;
+	private Vertice secondVertice;
+	private boolean oneWay;
 	
 	// Default Constructor
 	public Streets(){
-		this.MyStreetName = "Default";
-		this.MyFirstVertice = new Vertice();
-		this.MySecondVertice = new Vertice();
-		this.OneWay = false;
+		this.streetName = "Default";
+		this.firstVertice = new Vertice();
+		this.secondVertice = new Vertice();
+		this.oneWay = false;
 	}
 	
 	// Overload Constructor
-	public Streets(String StreetName, Vertice FirstVertice, Vertice SecondVertice, boolean _OneWay){
-		this.MyStreetName = StreetName;
-		this.MyFirstVertice = FirstVertice;
-		this.MySecondVertice = SecondVertice;
-		this.OneWay = _OneWay;
+	public Streets(String _streetName, Vertice _firstVertice, Vertice _secondVertice, boolean _oneWay){
+		this.streetName = _streetName;
+		this.firstVertice = _firstVertice;
+		this.secondVertice = _secondVertice;
+		this.oneWay = _oneWay;
 	}
 
 
 	//**************** GETTERS *******************//
-	public String getMyStreetName() {
-		return MyStreetName;
+	public String getStreetName() {
+		return streetName;
 	}
 	
-	public Vertice getMyFirstVertice() {
-		return MyFirstVertice;
+	public Vertice getFirstVertice() {
+		return firstVertice;
 	}
 
-	public Vertice getMySecondVertice() {
-		return MySecondVertice;
+	public Vertice getSecondVertice() {
+		return secondVertice;
 	}
 	
 	public boolean isOneWay() {
-		return OneWay;
+		return oneWay;
 	}
 	
 	//***************** SETTERS ******************//
-	public void setMyStreetName(String myStreetName) {
-		MyStreetName = myStreetName;
+	public void setStreetName(String _myStreetName) {
+		streetName = _myStreetName;
 	}
 	
-	public void setMyFirstVertice(Vertice myFirstVertice) {
-		MyFirstVertice = myFirstVertice;
+	public void setFirstVertice(Vertice _myFirstVertice) {
+		firstVertice = _myFirstVertice;
 	}
 
-	public void setMySecondVertice(Vertice mySecondVertice) {
-		MySecondVertice = mySecondVertice;
+	public void setSecondVertice(Vertice _mySecondVertice) {
+		secondVertice = _mySecondVertice;
 	}
 	
-	public void setOneWay(boolean oneWay) {
-		OneWay = oneWay;
+	public void setOneWay(boolean _oneWay) {
+		oneWay = _oneWay;
 	}
 	
 }

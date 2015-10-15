@@ -2,37 +2,36 @@ package structures;
 
 public class Vertice {
 
-	private String MyName;
-	private Coord MyPoint;
+	private String name;
+	private Coord point;
 	
 	// Default Constructor
 	public Vertice(){
-		this.MyName = "Default";
-		MyPoint = new Coord();
+		this.name = "Default";
+		point = new Coord();
 	}
 	
 	// Overloaded constructor
-	public Vertice(String Name, Coord ParameterArrayList){
-		this.MyName = Name;
-		this.MyPoint = ParameterArrayList;
+	public Vertice(String _name, Coord _point){
+		this.name = _name;
+		this.point = _point;
 	}
 
 	// ****************** GETTERS ****************//
-	public String getMyName() {
-		return MyName;
+	public String getName() {
+		return name;
 	}
 	
 	public Coord getCoord() {
-		return MyPoint;
+		return point;
 	}
 
 	// ***************** SETTERS ****************//
-	public void setMyName(String myName) {
-		MyName = myName;
+	public void setMyName(String _name) {
+		this.name = _name;
 	}
 	
-	public void setCoord(Coord myPoint) {
-		MyPoint = myPoint;
+	public void setCoord(Coord _point) {
+		this.point = _point;
 	}
-	
 }

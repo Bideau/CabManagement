@@ -2,59 +2,56 @@ package structures;
 
 public class Bridges {
 
-	private Vertice FromVertice;
-	private String ToArea;
-	private String ToVertice;
-	private double MyWeight;
+	private Vertice fromVertice;
+	private String toArea;
+	private String toVertice;
+	private double weight;
 	
 	public Bridges(){
-		this.FromVertice = new Vertice();
-		this.ToArea ="";
-		this.ToVertice = "";
-		this.MyWeight = 0.0;
+		this.fromVertice = new Vertice();
+		this.toArea ="";
+		this.toVertice = "";
+		this.weight = 0.0;
 	}
 	
-	public Bridges(Vertice FromVertice, String ToArea, String ToVertice, double Weight){
-		this.FromVertice = FromVertice;
-		this.ToArea = ToArea;
-		this.ToVertice = ToVertice;
-		this.MyWeight = Weight;
+	public Bridges(Vertice _fromVertice, String _toArea, String _toVertice, double _weight){
+		this.fromVertice = _fromVertice;
+		this.toArea = _toArea;
+		this.toVertice = _toVertice;
+		this.weight = _weight;
 	}
 
 	// ******************* GETTERS **************//
 	public Vertice getFromVertice() {
-		return FromVertice;
+		return fromVertice;
 	}
 
 	public String getToArea() {
-		return ToArea;
+		return toArea;
 	}
 
 	public String getToVertice() {
-		return ToVertice;
+		return toVertice;
 	}
 
 	public double getMyWeight() {
-		return MyWeight;
+		return weight;
 	}
 
 	// **************** SETTERS *****************//
-	public void setFromVertice(Vertice fromVertice) {
-		FromVertice = fromVertice;
+	public void setFromVertice(Vertice _fromVertice) {
+		this.fromVertice = _fromVertice;
 	}
 	
-	public void setToArea(String toArea) {
-		ToArea = toArea;
+	public void setToArea(String _toArea) {
+		this.toArea = _toArea;
 	}
 	
-	public void setToVertice(String toVertice) {
-		ToVertice = toVertice;
+	public void setToVertice(String _toVertice) {
+		this.toVertice = _toVertice;
 	}
 	
-	public void setMyWeight(double myWeight) {
-		MyWeight = myWeight;
+	public void setMyWeight(double _myWeight) {
+		this.weight = _myWeight;
 	}
-	
-	
-	
 }

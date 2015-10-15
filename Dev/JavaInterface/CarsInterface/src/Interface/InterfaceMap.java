@@ -20,34 +20,34 @@ public class InterfaceMap extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int Width = 700;
-	private int Height = 500;
+	private static int Width = 700;
+	private static int Height = 500;
 	
 	private JFrame frame;
 	private JPanel mainPanel;
 	private JPanel nothing;
-	private JTextArea Titre;
+	private JTextArea title;
 	
-	private Map MyMap;
-	private Area MyArea;
+	private Map map;
+	private Area area;
 	
 	public InterfaceMap(){
 		frame = new JFrame();
 		mainPanel = new JPanel();
 		nothing = new JPanel();
-		Titre = new JTextArea();
-		MyMap = new Map();
-		MyArea = new Area();
+		title = new JTextArea();
+		map = new Map();
+		area = new Area();
 	}
 	
-	public InterfaceMap(Area _Area){
+	public InterfaceMap(Area _area){
 		frame = new JFrame();
 		mainPanel = new JPanel();
 		nothing = new JPanel();
-		Titre = new JTextArea();
-		MyArea = _Area;
-		MyMap = new Map(MyArea);
-		System.out.println("Constructeur Surcharge");
+		title = new JTextArea();
+		area = _area;
+		map = new Map(area);
+		System.out.println("Overload Constructor");
 	}
 	
 	public void DrawInterface(){
@@ -61,79 +61,76 @@ public class InterfaceMap extends JFrame {
 		
 		nothing = new JPanel();
 		nothing.setLayout(new FlowLayout());
-		Titre = new JTextArea();
+		title = new JTextArea();
 		Font fontNothing = new Font(null, Font.BOLD,60);
-		Titre.setFont(fontNothing);
+		title.setFont(fontNothing);
 		
-		Titre.append(MyArea.getMyName());
-		nothing.add(Titre);
+		title.append(area.getMyName());
+		nothing.add(title);
 		
 		mainPanel.add(nothing,BorderLayout.NORTH);
 		
-		mainPanel.add(MyMap,BorderLayout.CENTER);
+		mainPanel.add(map,BorderLayout.CENTER);
 		
-		MyMap.setVisible(true);
+		map.setVisible(true);
 		
 		mainPanel.repaint();
 		
-		Titre.setEditable(false);
+		title.setEditable(false);
 		frame.setResizable(true);
 		frame.getContentPane().add(mainPanel);
 		mainPanel.setVisible(true);
 		frame.setVisible(true);
-		
-		System.out.println("toto");
-		
 	}
 	
 	public static void main(String[] args){
 		
 		//**** TEST ****//
-		double testX[] = { 10.0, 500.0, 10.0, 500.0};
-		double testY[] = { 10.0, 10.0, 500.0, 500.0};
+		double testX[] = { 10.0, 250.0, 10.0, 500.0};
+		double testY[] = { 10.0, 250.0, 500.0, 500.0};
 		//**************//
 		
-		Area East = new Area();
-		ArrayList<Vertice> myVerticesList = new ArrayList<Vertice>();
-		Streets MyStreet;
-		Streets MyStreet2;
-		Vertice MyVertice;
-		Coord MyCoord;
+		Area east = new Area();
+		ArrayList<Vertice> verticesList = new ArrayList<Vertice>();
+		Streets street;
+		Streets street2;
+		Vertice vertice;
+		Coord coord;
 		
-		East.setMyName("EAST");
+		east.setMyName("EAST");
 		
 		for(int i=0; i<testX.length; i++){
-			MyVertice = new Vertice();
-			MyCoord = new Coord();
+			vertice = new Vertice();
+			coord = new Coord();
 			
-			MyCoord.setX(testX[i]);
-			MyCoord.setY(testY[i]);
+			coord.setX(testX[i]);
+			coord.setY(testY[i]);
 			
 			//Point FixeVertice 
-			MyVertice.setMyName(Integer.toString(i+1));
-			MyVertice.setCoord(MyCoord);
+			vertice.setMyName(Integer.toString(i+1));
+			vertice.setCoord(coord);
 			
-			myVerticesList.add(MyVertice);
-			System.out.println("x Vertice : " + myVerticesList.get(i).getCoord().getX());
-			System.out.println("name Vertice : " + myVerticesList.get(i).getMyName());
+			verticesList.add(vertice);
+			System.out.println("x Vertice : " + verticesList.get(i).getCoord().getX());
+			System.out.println("name Vertice : " + verticesList.get(i).getName());
 			
 		}
 		
-		MyStreet = new Streets();
-		MyStreet2 = new Streets();
+		street = new Streets();
+		street2 = new Streets();
 		
-		MyStreet.setMyFirstVertice(myVerticesList.get(0));
-		MyStreet.setMySecondVertice(myVerticesList.get(1));
-		MyStreet2.setMyFirstVertice(myVerticesList.get(0));
-		MyStreet2.setMySecondVertice(myVerticesList.get(2));
+		street.setFirstVertice(verticesList.get(0));
+		street.setSecondVertice(verticesList.get(1));
+		street2.setFirstVertice(verticesList.get(0));
+		street2.setSecondVertice(verticesList.get(2));
 		
-		East.getMyStreetsList().add(MyStreet);
-		East.getMyStreetsList().add(MyStreet2);
+		east.getStreetsList().add(street);
+		east.getStreetsList().add(street2);
 
-		East.setMyVerticesList(myVerticesList);
+		east.setMyVerticesList(verticesList);
 		
-		InterfaceMap MyInterface = new InterfaceMap(East);
+		InterfaceMap interface1 = new InterfaceMap(east);
 		
-		MyInterface.DrawInterface();
+		interface1.DrawInterface();
 	}
 }

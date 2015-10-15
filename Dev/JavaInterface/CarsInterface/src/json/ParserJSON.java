@@ -18,21 +18,6 @@ import org.json.simple.parser.ContainerFactory;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import structures.*;
 
 public class ParserJSON {
@@ -108,7 +93,7 @@ public class ParserJSON {
 		Vertice lastVert = new Vertice();
 		int cnt=0;
 		Streets myStreet=new Streets();
-		myStreet.setMyStreetName(tempStreet.get("name").toString());
+		myStreet.setStreetName(tempStreet.get("name").toString());
 		myStreet.setOneWay(Boolean.parseBoolean(tempStreet.get("oneway").toString()));
 		JSONArray array2 =  (JSONArray) parser.parse(tempStreet.get("path").toString());
 		// 
@@ -117,7 +102,7 @@ public class ParserJSON {
 			String name= obj2.toString();
 			// Go throught the know list
 			for(Vertice tempVert:listVertice){
-				if(name.equals(tempVert.getMyName())){
+				if(name.equals(tempVert.getName())){
 					switch(cnt){
 					case 1:
 						firstVert=tempVert;
@@ -129,8 +114,8 @@ public class ParserJSON {
 				}
 			}
 		}
-		myStreet.setMyFirstVertice(firstVert);
-		myStreet.setMySecondVertice(lastVert);
+		myStreet.setFirstVertice(firstVert);
+		myStreet.setSecondVertice(lastVert);
 		return myStreet;
 	}
 	
@@ -145,7 +130,7 @@ public class ParserJSON {
 		String nameFrom= tempBridge.get("from").toString();
 		// Go throught the know list
 		for(Vertice tempVert:listVertice){
-			if(nameFrom.equals(tempVert.getMyName())){
+			if(nameFrom.equals(tempVert.getName())){
 				myBridges.setFromVertice(tempVert);
 			}
 		}

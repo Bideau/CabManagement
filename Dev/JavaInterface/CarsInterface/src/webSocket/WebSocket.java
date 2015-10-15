@@ -9,11 +9,11 @@ import org.eclipse.jetty.websocket.*;
 import java.net.URI;
 import java.util.concurrent.Future;
 
-import org.eclipse.jetty.websocket.api.Session;
-import org.eclipse.jetty.websocket.client.WebSocketClient;
+//import org.eclipse.jetty.websocket.api.Session;
+//import org.eclipse.jetty.websocket.client.WebSocketClient;
 
 public class WebSocket{
-	
+	/*
     public static void main(String[] args){
         URI uri = URI.create("ws://localhost:8080/events/");
 
@@ -39,5 +39,5 @@ public class WebSocket{
         catch (Throwable t){
             t.printStackTrace(System.err);
         }
-    }
+    }*/
 }
