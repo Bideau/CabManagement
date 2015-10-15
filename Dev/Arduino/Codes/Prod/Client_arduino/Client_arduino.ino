@@ -25,7 +25,7 @@ WebSocketClient client;
 
 int customers;
 boolean cabState;
-int distanceTravelled;
+int distance;
 aJsonObject *answer;
 
 /*
@@ -46,7 +46,7 @@ void setCabStatus(){
 
   // Distance
   lcd.setCursor(10,0);
-  lcd.print(distanceTravelled);
+  lcd.print(distance);
   lcd.setCursor(11,0);
   lcd.print("Km");
 
@@ -107,9 +107,9 @@ void onMessage(WebSocketClient client, char* message) {
   aJsonObject* numberOfClients = aJson.getObjectItem(jsonObject , "numberOfClients");
   aJsonObject* cabstatus = aJson.getObjectItem(jsonObject , "cabStatus");
   aJsonObject* distanceTravelled = aJson.getObjectItem(jsonObject , "distanceTravelled");
-  int customers = numberOfClient->valueint;
-  boolean cabState = cabstatus->valuebool;
-  int distanceTravelled = distanceTravelled->valueint;
+  customers = numberOfClients->valueint;
+  cabState = cabstatus->valuebool;
+  distance = distanceTravelled->valueint;
 
   
   // Refresh LCD with new information
@@ -164,19 +164,19 @@ void loop() {
       case btnRIGHT:{
         // Transform decline into JSON
         answer=aJson.createObject();
-        aJson.addItemToObject(answer, "answer", aJson.createString("false"));
+        aJson.addItemToObject(answer, "answer", aJson.createItem("false"));
 
         // Send decline
-        client.send(anwser->valuestring);
+        client.send(answer->valuestring);
         break;
       }
       case btnLEFT:{
         // Transform accept into JSON
         answer=aJson.createObject();
-        aJson.addItemToObject(answer, "answer", aJson.createString("true"));
+        aJson.addItemToObject(answer, "answer", aJson.createItem("true"));
         
         // Send accept
-        client.send(anwser->valuestring);
+        client.send(answer->valuestring);
         break;
       }
       default:{
