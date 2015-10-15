@@ -1,3 +1,4 @@
+#include <aJSON.h>
 #include <LiquidCrystal.h>
 #include <WebSocketClient.h>
 #include "Arduino.h"
@@ -22,10 +23,14 @@ byte mac[] = { 0x98, 0x4F, 0xEE, 0x05, 0x37, 0xE3 };
 char server[] = "echo.websocket.org";
 WebSocketClient client;
 
+int customers;
+boolean cabState;
+int distanceTravelled;
+
 /*
  * Cab status LCD refresher
  */
-void setCabStatus(int customers, boolean cabState, int distanceTravelled, boolean showButtons){
+void setCabStatus(){
   // Customers
   lcd.setCursor(0,0);
   lcd.print(customers);
@@ -46,7 +51,7 @@ void setCabStatus(int customers, boolean cabState, int distanceTravelled, boolea
 
   // Buttons
   lcd.setCursor(0,1);
-  if(showButtons == true){
+  if(cabState == true){
     lcd.print("Accept");
     lcd.setCursor(10,1);
     lcd.print("Reject");
@@ -95,10 +100,19 @@ void onOpen(WebSocketClient client) {
 void onMessage(WebSocketClient client, char* message) {
   Serial.println("Message received");
   Serial.print("Received: "); Serial.println(message);
-  //TODO
+  
   // Parse JSON
+  aJsonObject* jsonObject = aJson.parse(message);
+  aJsonObject* numberOfClients = aJson.getObjectItem(jsonObject , "numberOfClients");
+  aJsonObject* cabstatus = aJson.getObjectItem(jsonObject , "cabStatus");
+  aJsonObject* distanceTravelled = aJson.getObjectItem(jsonObject , "distanceTravelled");
+  int customers = numberOfClient->valueint;
+  boolean cabState = cabstatus->valuebool;
+  int distanceTravelled = distanceTravelled->valueint;
+
+  
   // Refresh LCD with new information
-  //setCabStatus("...");
+  setCabStatus();
 }
 
 /*
