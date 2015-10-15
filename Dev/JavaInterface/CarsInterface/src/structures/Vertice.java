@@ -22,7 +22,7 @@ public class Vertice {
 		return MyName;
 	}
 	
-	public Coord getMyPoint() {
+	public Coord getCoord() {
 		return MyPoint;
 	}
 
@@ -31,7 +31,7 @@ public class Vertice {
 		MyName = myName;
 	}
 	
-	public void setMyPoint(Coord myPoint) {
+	public void setCoord(Coord myPoint) {
 		MyPoint = myPoint;
 	}
 	
