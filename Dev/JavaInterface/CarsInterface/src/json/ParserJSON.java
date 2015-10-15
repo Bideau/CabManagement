@@ -83,45 +83,6 @@ public class ParserJSON {
 		}
 		tmpArea.setMyVerticesList(listVertice);
 
-<<<<<<< HEAD
-			JsonText = builder.toString();
-			System.out.println(JsonText);
-
-			//****************************//
-
-			json = (Map)parser.parse(JsonText);
-			
-			json2 = (Map)parser.parse(json.get("areas").toString());
-			//json2 = (Map)parser.parse(json2.get("map").toString());
-			//json2 = (Map)parser.parse(json2.get("vertices").toString());
-			
-			Iterator iter = json2.entrySet().iterator();
-			
-			while(iter.hasNext()){
-				Area tmpArea = new Area(); 
-				
-				Map.Entry entry = (Map.Entry)iter.next();
-				json2 = (Map)parser.parse(entry.getValue().toString());
-				
-				String tmpName = json2.get("name").toString();
-				tmpArea.setMyName(tmpName);
-				
-				json3 = (Map)parser.parse(json2.get("map").toString());
-				
-				Iterator iter2 = json3.entrySet().iterator();
-				
-				while(iter2.hasNext()){
-					Map.Entry entry2 = (Map.Entry)iter.next();
-					json3 = (Map)parser.parse(entry2.getValue().toString());
-					
-					String tmpWeight = json2.get("weight").toString();
-					//tmpArea.
-					
-				}
-				
-				//Carte.add(new cellTypes(entry.getKey().toString(),Boolean.valueOf(json2.get("causeDeath").toString()),
-				//Boolean.valueOf(json2.get("isAccessible").toString()),tmpRep));
-=======
 		array =  (JSONArray) json2.get("streets");
 		// For Streets list
 		for(Object obj:array){
@@ -194,7 +155,6 @@ public class ParserJSON {
 		myBridges.setToVertice(tempTo.get("vertex").toString());
 		return myBridges;
 	}
->>>>>>> a5f58f9f907698ebd608fb6e8f0cf52009c60748
 
 	/*
 	 * Create Vetex from JSON informations
@@ -232,11 +192,8 @@ public class ParserJSON {
 				System.out.println(tmpName+" "+tmpMap);
 			}
 
-<<<<<<< HEAD
-=======
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
->>>>>>> a5f58f9f907698ebd608fb6e8f0cf52009c60748
 		}catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
@@ -263,9 +220,9 @@ public class ParserJSON {
 		return JsonText;
 	}
 
-	/*public static void main(String[] args){
+	public static void main(String[] args){
 		ParserJSON MyParser = new ParserJSON("toto");
 		MyParser.FrameParsing();
-	}*/
+	}
 
 }
