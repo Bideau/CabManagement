@@ -1,5 +1,6 @@
 # Suppresion metadata Eclipse
 .metadata/
+.classpath
 
 # Suppression bin Eclipse
 bin/

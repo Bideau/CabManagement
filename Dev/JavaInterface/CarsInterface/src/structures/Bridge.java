@@ -1,24 +1,25 @@
 package structures;
 
+
 public class Bridge {
 
+	private String from;
+	private Dest to;
 	private Vertex fromVertice;
-	private String toArea;
-	private String toVertice;
 	private double weight;
 	
 	public Bridge(){
 		this.fromVertice = new Vertex();
-		this.toArea ="";
-		this.toVertice = "";
+		this.to=new Dest();
 		this.weight = 0.0;
+		this.from="";
+
 	}
 	
-	public Bridge(Vertex _fromVertice, String _toArea, String _toVertice, double _weight){
+	public Bridge(Vertex _fromVertice, double _weight){
 		this.fromVertice = _fromVertice;
-		this.toArea = _toArea;
-		this.toVertice = _toVertice;
 		this.weight = _weight;
+
 	}
 
 	// ******************* GETTERS **************//
@@ -26,13 +27,7 @@ public class Bridge {
 		return fromVertice;
 	}
 
-	public String getToArea() {
-		return toArea;
-	}
 
-	public String getToVertice() {
-		return toVertice;
-	}
 
 	public double getMyWeight() {
 		return weight;
@@ -43,15 +38,34 @@ public class Bridge {
 		this.fromVertice = _fromVertice;
 	}
 	
-	public void setToArea(String _toArea) {
-		this.toArea = _toArea;
-	}
-	
-	public void setToVertice(String _toVertice) {
-		this.toVertice = _toVertice;
-	}
+
 	
 	public void setMyWeight(double _myWeight) {
 		this.weight = _myWeight;
+	}
+
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+
+	public Dest getTo() {
+		return to;
+	}
+
+	public void setTo(Dest to) {
+		this.to = to;
 	}
 }

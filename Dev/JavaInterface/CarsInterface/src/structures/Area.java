@@ -1,73 +1,38 @@
 package structures;
 
-import java.util.ArrayList;
 
 public class Area {
 
 	private String name;
-	private ArrayList<Vertex> verticesList;
-	private ArrayList<Street> streetsList;
-	private ArrayList<Bridge> bridgesList;
-	private int width;
-	private int height;
+	private Carte map;
 	
 	public Area(){
 		name = "Default";
-		verticesList = new ArrayList<Vertex>();
-		streetsList = new ArrayList<Street>();
-		bridgesList = new ArrayList<Bridge>();
+		map=new Carte();
 		
 	}
-
 	// ***************** GETTERS *******************//
 	
-	public String getMyName() {
+	public String getName() {
 		return name;
 	}
 	
-	public ArrayList<Vertex> getVerticesList() {
-		return verticesList;
-	}
-
-	public ArrayList<Street> getStreetsList() {
-		return streetsList;
-	}
-	
-	public ArrayList<Bridge> getBridgesList() {
-		return bridgesList;
-	}
-
 	// **************** SETTERS ****************//
-	public void setMyName(String _name) {
+	public void setName(String _name) {
 		this.name = _name;
 	}
 
-	public void setMyVerticesList(ArrayList<Vertex> _verticesList) {
-		this.verticesList = _verticesList;
+	public Carte getMap() {
+		return map;
 	}
 
-	public void setMyStreetsList(ArrayList<Street> _streetsList) {
-		this.streetsList = _streetsList;
+	public void setMap(Carte map) {
+		this.map = map;
 	}
 
-	public void setMyBridgesList(ArrayList<Bridge> _bridgesList) {
-		this.bridgesList = _bridgesList;
+	@Override
+	public String toString() {
+		return "Area [name=" + name + ", map=" + map + "]";
 	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public void setWidth(int _width) {
-		this.width = _width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int _height) {
-		this.height = _height;
-	}	
 	
 }

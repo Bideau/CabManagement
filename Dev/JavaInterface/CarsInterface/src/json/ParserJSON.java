@@ -1,6 +1,7 @@
 package json;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,6 +12,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -24,93 +28,51 @@ public class ParserJSON {
 
 	private String MyJsonFrame;
 	private Object obj ;
-	private JSONParser parser;
-	private JSONObject jsonObject;
-	private JSONObject json;
-	private ArrayList<Vertex> listVertice;
+	private ObjectMapper mapper;
 
 	public ParserJSON(){
-		this.MyJsonFrame = "Default";
+		this("Default");
+		
 	}
 
 
 	public ParserJSON(String jsonFrame){
 		// Path Test
+		mapper = new ObjectMapper();
 		jsonFrame = "/media/guinux/Data/Cours/Actuel/IntMobile/CabManagement/Dev/JavaInterface/json/test.json";
-		parser = new JSONParser();
 		this.MyJsonFrame = jsonFrame;
 
 	}
 
-	private void ParsingArea(String area, String value) throws ParseException{
-		JSONObject json2;
-		JSONObject json3;
-		JSONArray array;
-		ArrayList<Street> listStreet=new ArrayList<Street>();
-		ArrayList<Bridge> listBridges=new ArrayList<Bridge>();
-		Area tmpArea = new Area();
-
-		listVertice=new ArrayList<Vertex>();
-
-
-		tmpArea.setMyName(area);
-		json2 = (JSONObject) parser.parse(value);
-		json3 = (JSONObject) parser.parse(json2.get("weight").toString());
-		tmpArea.setWidth(Integer.parseInt(json3.get("w").toString()));
-		tmpArea.setHeight(Integer.parseInt(json3.get("h").toString()));
-		array =  (JSONArray) json2.get("vertices");
-
-		// For Vertice list
-		for(Object obj:array){
-			JSONObject tempVertice=(JSONObject) obj;
-			listVertice.add(ParsingVertices(tempVertice));
-
+	private Area ParsingArea(String area) throws ParseException, JsonParseException, JsonMappingException, IOException{ 
+		//System.out.println(area);
+		Area myArea = mapper.readValue(area, Area.class);
+		for(Street tmpStreet:myArea.getMap().getStreets()){
+			ParsingStreets(myArea, tmpStreet);
 		}
-		tmpArea.setMyVerticesList(listVertice);
-
-		array =  (JSONArray) json2.get("streets");
-		// For Streets list
-		for(Object obj:array){
-			JSONObject tempStreet=(JSONObject) obj;
-			listStreet.add(ParsingStreets(tempStreet));
+		for(Bridge tmpBridge:myArea.getMap().getBridges()){
+			ParsingBridge(myArea, tmpBridge);
 		}
-		tmpArea.setMyStreetsList(listStreet);
-
-		// For Bridge List
-		array =  (JSONArray) json2.get("bridges");
-		for(Object obj:array){
-			JSONObject tempBridge=(JSONObject) obj;
-			listBridges.add(ParsinBridge(tempBridge));
-		}
-		tmpArea.setMyBridgesList(listBridges);
+		return myArea;
 	} 
-	
+
 	/*
 	 * Create Streets from Json informations
 	 */
-	private Street ParsingStreets(JSONObject tempStreet) throws ParseException{
+	private Street ParsingStreets(Area myArea ,Street myStreet) throws ParseException{
 		Vertex firstVert = new Vertex();
 		Vertex lastVert = new Vertex();
 		int cnt=0;
-		Street myStreet=new Street();
-		myStreet.setStreetName(tempStreet.get("name").toString());
-		myStreet.setOneWay(Boolean.parseBoolean(tempStreet.get("oneway").toString()));
-		JSONArray array2 =  (JSONArray) parser.parse(tempStreet.get("path").toString());
-		// 
-		for(Object obj2:array2){
-			cnt++;
-			String name= obj2.toString();
-			// Go throught the know list
-			for(Vertex tempVert:listVertice){
-				if(name.equals(tempVert.getName())){
-					switch(cnt){
-					case 1:
-						firstVert=tempVert;
-						break;
-					case 2:
-						lastVert=tempVert;
-						break;
-					}
+
+		for(Vertex tempVert:myArea.getMap().getVertices()){
+			if(myStreet.getPath().get(1).equals(tempVert.getName())){
+				switch(cnt){
+				case 1:
+					firstVert=tempVert;
+					break;
+				case 2:
+					lastVert=tempVert;
+					break;
 				}
 			}
 		}
@@ -118,65 +80,35 @@ public class ParserJSON {
 		myStreet.setSecondVertice(lastVert);
 		return myStreet;
 	}
-	
+
 	/*
 	 * Create Bridge from Json informations
 	 */
-	private Bridge ParsinBridge(JSONObject tempBridge){
-		Bridge myBridges = new Bridge();
-		myBridges.setMyWeight(Double.parseDouble(tempBridge.get("weight").toString()));
+	private Bridge ParsingBridge(Area myArea,Bridge myBridge){
 
-		// Get Vertex From
-		String nameFrom= tempBridge.get("from").toString();
-		// Go throught the know list
-		for(Vertex tempVert:listVertice){
-			if(nameFrom.equals(tempVert.getName())){
-				myBridges.setFromVertice(tempVert);
+		for(Vertex tempVert:myArea.getMap().getVertices()){
+			if(myBridge.getFrom().equals(tempVert.getName())){
+				myBridge.setFromVertice(tempVert);
 			}
 		}
-		// Get Vertex To
-		JSONObject tempTo=(JSONObject) tempBridge.get("to");
-		myBridges.setToArea(tempTo.get("area").toString());
-		myBridges.setToVertice(tempTo.get("vertex").toString());
-		return myBridges;
-	}
-
-	/*
-	 * Create Vetex from JSON informations
-	 */
-	private Vertex ParsingVertices(JSONObject tempVertice){
-		Vertex myVertice = new Vertex();
-		Coord tempCoord = new Coord();
-
-		myVertice.setMyName(tempVertice.get("name").toString());
-		tempCoord.setX(Double.parseDouble(tempVertice.get("x").toString()));
-		tempCoord.setY(Double.parseDouble(tempVertice.get("y").toString()));
-		myVertice.setCoord(tempCoord);
-
-		return myVertice;
+		return myBridge;
 	}
 
 	private void FrameParsing(){
-
-		String JsonText;
-		String tmpName,tmpMap;
 		JSONArray array;
+		String JsonText;
+		JSONParser parser = new JSONParser();
+		JSONObject jsonObject= new JSONObject();
 		try {
 			//Get file data
 			JsonText=fileRead();
 			obj = parser.parse(JsonText);
 			jsonObject =  (JSONObject) obj;
-
 			//Parsing for areas
 			array = (JSONArray) jsonObject.get("areas");
-			for(int i =0; i<array.size();i++){
-				json = (JSONObject) parser.parse(array.get(i).toString());
-				tmpName = (String) json.get("name");
-				tmpMap=json.get("map").toString();
-				ParsingArea(tmpName,tmpMap);
-				System.out.println(tmpName+" "+tmpMap);
+			for(Object obj:array){
+				System.out.println(ParsingArea(obj.toString()));
 			}
-
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}catch (IOException e) {
