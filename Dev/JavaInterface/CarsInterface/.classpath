@@ -9,5 +9,8 @@
 	<classpathentry kind="lib" path="D:/IMERIR 3A Project/CabManagement/GIT/CabManagement/Dev/JavaInterface/jetty/websocket/websocket-server-9.3.3.v20150827.jar"/>
 	<classpathentry kind="lib" path="D:/IMERIR 3A Project/CabManagement/GIT/CabManagement/Dev/JavaInterface/jetty/websocket/websocket-servlet-9.3.3.v20150827.jar"/>
 	<classpathentry kind="lib" path="D:/IMERIR 3A Project/CabManagement/GIT/CabManagement/Dev/JavaInterface/jetty/jetty-server-9.3.3.v20150827.jar"/>
+	<classpathentry kind="lib" path="D:/IMERIR 3A Project/CabManagement/GIT/CabManagement/Dev/JavaInterface/jetty/jetty-client-9.3.3.v20150827.jar"/>
+	<classpathentry kind="lib" path="D:/IMERIR 3A Project/CabManagement/GIT/CabManagement/Dev/JavaInterface/jetty/jetty-util-9.3.3.v20150827.jar"/>
+	<classpathentry kind="lib" path="D:/IMERIR 3A Project/CabManagement/GIT/CabManagement/Dev/JavaInterface/jetty/jetty-io-9.3.3.v20150827.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

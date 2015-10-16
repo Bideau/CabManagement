@@ -53,6 +53,8 @@ public class SocketIO {
 		}
 	}
 
+	// The onMessage(String msg) receives the responses from the remote server WebSocket
+	// and outputs them to the console.
 	@OnWebSocketMessage
 	public void onMessage(String msg) {
 		System.out.printf("Got msg: %s%n", msg);
