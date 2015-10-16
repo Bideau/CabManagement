@@ -1,32 +1,41 @@
 package structures;
 
+import java.util.ArrayList;
+
 public class Street {
 
-	private String streetName;
+	private String name;
 	private Vertex firstVertice;
 	private Vertex secondVertice;
-	private boolean oneWay;
+	private ArrayList<String> path;
+	private boolean oneway;
 	
 	// Default Constructor
 	public Street(){
-		this.streetName = "Default";
+		this.name = "Default";
 		this.firstVertice = new Vertex();
 		this.secondVertice = new Vertex();
-		this.oneWay = false;
+		this.oneway = false;
+		this.path=new ArrayList<String>() {
+			{
+				add("msg 1");
+				add("msg 2");
+			}
+		};
 	}
 	
 	// Overload Constructor
 	public Street(String _streetName, Vertex _firstVertice, Vertex _secondVertice, boolean _oneWay){
-		this.streetName = _streetName;
+		this.name = _streetName;
 		this.firstVertice = _firstVertice;
 		this.secondVertice = _secondVertice;
-		this.oneWay = _oneWay;
+		this.oneway = _oneWay;
 	}
 
 
 	//**************** GETTERS *******************//
-	public String getStreetName() {
-		return streetName;
+	public String getName() {
+		return name;
 	}
 	
 	public Vertex getFirstVertice() {
@@ -37,13 +46,13 @@ public class Street {
 		return secondVertice;
 	}
 	
-	public boolean isOneWay() {
-		return oneWay;
+	public boolean isOneway() {
+		return oneway;
 	}
 	
 	//***************** SETTERS ******************//
-	public void setStreetName(String _myStreetName) {
-		streetName = _myStreetName;
+	public void setName(String _myStreetName) {
+		name = _myStreetName;
 	}
 	
 	public void setFirstVertice(Vertex _myFirstVertice) {
@@ -54,8 +63,23 @@ public class Street {
 		secondVertice = _mySecondVertice;
 	}
 	
-	public void setOneWay(boolean _oneWay) {
-		oneWay = _oneWay;
+	public void setOneway(boolean _oneWay) {
+		oneway = _oneWay;
+	}
+
+	public ArrayList<String> getPath() {
+		return path;
+	}
+
+	public void setPath(ArrayList<String> path) {
+		this.path = path;
+	}
+
+	@Override
+	public String toString() {
+		return "Street [name=" + name + ", firstVertice=" + firstVertice
+				+ ", secondVertice=" + secondVertice + ", path=" + path
+				+ ", oneway=" + oneway + "]";
 	}
 	
 }
