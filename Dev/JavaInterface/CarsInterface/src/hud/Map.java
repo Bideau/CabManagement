@@ -1,6 +1,6 @@
 package hud;
 
-import structures.*;
+import structures.map.*;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

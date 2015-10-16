@@ -9,9 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import structures.Area;
-import structures.Street;
-import structures.Vertex;
+import structures.map.*;
 
 public class InterfaceMap extends JFrame {
 
