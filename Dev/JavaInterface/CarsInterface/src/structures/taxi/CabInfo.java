@@ -8,7 +8,42 @@ public class CabInfo {
 	private LocVertex locNext;
 
 	public CabInfo() {
-		// TODO Auto-generated constructor stub
+		odometer=0;
+		destination="";
+		locNow=new LocVertex();
+		locNext=new LocVertex();
+	}
+
+	public int getOdometer() {
+		return odometer;
+	}
+
+	public void setOdometer(int odometer) {
+		this.odometer = odometer;
+	}
+
+	public String getDestination() {
+		return destination;
+	}
+
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+
+	public LocVertex getLocNow() {
+		return locNow;
+	}
+
+	public void setLocNow(LocVertex locNow) {
+		this.locNow = locNow;
+	}
+
+	public LocVertex getLocNext() {
+		return locNext;
+	}
+
+	public void setLocNext(LocVertex locNext) {
+		this.locNext = locNext;
 	}
 
 }
