@@ -30,9 +30,9 @@ public class VertexDrawer {
 	public void paintVertices(Graphics2D g2d){
 
 		//************* Get and draw Vertices **************//
-		for(Vertex object : this.area.getVerticesList()){
-			x = object.getCoord().getX();
-			y = object.getCoord().getY();
+		for(Vertex object : this.area.getMap().getVertices()){
+			x = object.getX();
+			y = object.getY();
 
 			System.out.println("X : " + x + "\nY : " + y + "\nName : " + object.getName());
 

@@ -17,6 +17,11 @@ public class Street {
 		this.secondVertice = new Vertex();
 		this.oneway = false;
 		this.path=new ArrayList<String>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			{
 				add("msg 1");
 				add("msg 2");
