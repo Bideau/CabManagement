@@ -6,6 +6,7 @@ public class LocVertex {
 	private String location;
 	private String locationType;
 	private int progression;
+	
 	public LocVertex() {
 		area="";
 		location="";
@@ -35,6 +36,12 @@ public class LocVertex {
 	}
 	public void setProgression(int progression) {
 		this.progression = progression;
+	}
+	@Override
+	public String toString() {
+		return "LocVertex [area=" + area + ", location=" + location
+				+ ", locationType=" + locationType + ", progression="
+				+ progression + "]";
 	}
 
 }

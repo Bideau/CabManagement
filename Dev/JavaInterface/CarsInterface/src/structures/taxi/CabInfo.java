@@ -3,13 +3,13 @@ package structures.taxi;
 public class CabInfo {
 	
 	private int odometer;
-	private String destination;
+	private CabRequest destination;
 	private LocVertex locNow;
 	private LocVertex locNext;
 
 	public CabInfo() {
 		odometer=0;
-		destination="";
+		destination=new CabRequest();
 		locNow=new LocVertex();
 		locNext=new LocVertex();
 	}
@@ -22,11 +22,11 @@ public class CabInfo {
 		this.odometer = odometer;
 	}
 
-	public String getDestination() {
+	public CabRequest getDestination() {
 		return destination;
 	}
 
-	public void setDestination(String destination) {
+	public void setDestination(CabRequest destination) {
 		this.destination = destination;
 	}
 
@@ -44,6 +44,12 @@ public class CabInfo {
 
 	public void setLocNext(LocVertex locNext) {
 		this.locNext = locNext;
+	}
+
+	@Override
+	public String toString() {
+		return "CabInfo [odometer=" + odometer + ", destination=" + destination
+				+ ", locNow=" + locNow + ", locNext=" + locNext + "]";
 	}
 
 }

@@ -20,5 +20,9 @@ public class CabRequest {
 	public void setLocation(LocVertex location) {
 		this.location = location;
 	}
+	@Override
+	public String toString() {
+		return "CabRequest [area=" + area + ", location=" + location + "]";
+	}
 
 }
