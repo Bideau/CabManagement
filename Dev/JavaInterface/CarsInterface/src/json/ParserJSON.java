@@ -130,9 +130,6 @@ public class ParserJSON {
 		br.close();
 		return JsonText;
 	}
-	 private void taxiParsing(){
-		 
-	 }
 
 	public static void main(String[] args){
 		ParserJSON MyParser = new ParserJSON("toto");
