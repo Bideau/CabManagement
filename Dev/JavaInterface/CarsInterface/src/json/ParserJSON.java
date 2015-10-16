@@ -18,21 +18,6 @@ import org.json.simple.parser.ContainerFactory;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import structures.*;
 
 public class ParserJSON {
@@ -42,7 +27,7 @@ public class ParserJSON {
 	private JSONParser parser;
 	private JSONObject jsonObject;
 	private JSONObject json;
-	private ArrayList<Vertice> listVertice;
+	private ArrayList<Vertex> listVertice;
 
 	public ParserJSON(){
 		this.MyJsonFrame = "Default";
@@ -61,11 +46,11 @@ public class ParserJSON {
 		JSONObject json2;
 		JSONObject json3;
 		JSONArray array;
-		ArrayList<Streets> listStreet=new ArrayList<Streets>();
-		ArrayList<Bridges> listBridges=new ArrayList<Bridges>();
+		ArrayList<Street> listStreet=new ArrayList<Street>();
+		ArrayList<Bridge> listBridges=new ArrayList<Bridge>();
 		Area tmpArea = new Area();
 
-		listVertice=new ArrayList<Vertice>();
+		listVertice=new ArrayList<Vertex>();
 
 
 		tmpArea.setMyName(area);
@@ -103,12 +88,12 @@ public class ParserJSON {
 	/*
 	 * Create Streets from Json informations
 	 */
-	private Streets ParsingStreets(JSONObject tempStreet) throws ParseException{
-		Vertice firstVert = new Vertice();
-		Vertice lastVert = new Vertice();
+	private Street ParsingStreets(JSONObject tempStreet) throws ParseException{
+		Vertex firstVert = new Vertex();
+		Vertex lastVert = new Vertex();
 		int cnt=0;
-		Streets myStreet=new Streets();
-		myStreet.setMyStreetName(tempStreet.get("name").toString());
+		Street myStreet=new Street();
+		myStreet.setStreetName(tempStreet.get("name").toString());
 		myStreet.setOneWay(Boolean.parseBoolean(tempStreet.get("oneway").toString()));
 		JSONArray array2 =  (JSONArray) parser.parse(tempStreet.get("path").toString());
 		// 
@@ -116,8 +101,8 @@ public class ParserJSON {
 			cnt++;
 			String name= obj2.toString();
 			// Go throught the know list
-			for(Vertice tempVert:listVertice){
-				if(name.equals(tempVert.getMyName())){
+			for(Vertex tempVert:listVertice){
+				if(name.equals(tempVert.getName())){
 					switch(cnt){
 					case 1:
 						firstVert=tempVert;
@@ -129,23 +114,23 @@ public class ParserJSON {
 				}
 			}
 		}
-		myStreet.setMyFirstVertice(firstVert);
-		myStreet.setMySecondVertice(lastVert);
+		myStreet.setFirstVertice(firstVert);
+		myStreet.setSecondVertice(lastVert);
 		return myStreet;
 	}
 	
 	/*
 	 * Create Bridge from Json informations
 	 */
-	private Bridges ParsinBridge(JSONObject tempBridge){
-		Bridges myBridges = new Bridges();
+	private Bridge ParsinBridge(JSONObject tempBridge){
+		Bridge myBridges = new Bridge();
 		myBridges.setMyWeight(Double.parseDouble(tempBridge.get("weight").toString()));
 
 		// Get Vertex From
 		String nameFrom= tempBridge.get("from").toString();
 		// Go throught the know list
-		for(Vertice tempVert:listVertice){
-			if(nameFrom.equals(tempVert.getMyName())){
+		for(Vertex tempVert:listVertice){
+			if(nameFrom.equals(tempVert.getName())){
 				myBridges.setFromVertice(tempVert);
 			}
 		}
@@ -159,8 +144,8 @@ public class ParserJSON {
 	/*
 	 * Create Vetex from JSON informations
 	 */
-	private Vertice ParsingVertices(JSONObject tempVertice){
-		Vertice myVertice = new Vertice();
+	private Vertex ParsingVertices(JSONObject tempVertice){
+		Vertex myVertice = new Vertex();
 		Coord tempCoord = new Coord();
 
 		myVertice.setMyName(tempVertice.get("name").toString());
