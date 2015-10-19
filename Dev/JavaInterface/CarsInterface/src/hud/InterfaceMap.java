@@ -1,6 +1,7 @@
 package hud;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -9,9 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import structures.Area;
-import structures.Street;
-import structures.Vertex;
+import structures.map.*;
 
 public class InterfaceMap extends JFrame {
 
@@ -21,11 +20,16 @@ public class InterfaceMap extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static int Width = 700;
 	private static int Height = 500;
+	private static int XOffsetPixels = 10;
+	private static int XMaxPixels = 1300;
+	private static int YOffsetPixels = 0;
+	private static int YMaxPixels = 550;
 	
 	private JFrame frame;
 	private JPanel mainPanel;
 	private JPanel nothing;
 	private JTextArea title;
+	private Component mouseListenerArea;
 	
 	private Map map;
 	private Area area;
@@ -35,6 +39,7 @@ public class InterfaceMap extends JFrame {
 		mainPanel = new JPanel();
 		nothing = new JPanel();
 		title = new JTextArea();
+		mouseListenerArea = new JTextArea();
 		map = new Map();
 		area = new Area();
 	}
@@ -44,6 +49,7 @@ public class InterfaceMap extends JFrame {
 		mainPanel = new JPanel();
 		nothing = new JPanel();
 		title = new JTextArea();
+		mouseListenerArea = new JTextArea();
 		area = _area;
 		map = new Map(area);
 		System.out.println("Overload Constructor");
@@ -60,12 +66,12 @@ public class InterfaceMap extends JFrame {
 		
 		nothing = new JPanel();
 		nothing.setLayout(new FlowLayout());
-		title = new JTextArea();
 		Font fontNothing = new Font(null, Font.BOLD,60);
 		title.setFont(fontNothing);
+		mouseListenerArea.setFont(fontNothing);
 		
 		title.append(area.getName());
-		nothing.add(title);
+		nothing.add(title);		
 		
 		mainPanel.add(nothing,BorderLayout.NORTH);
 		
@@ -85,8 +91,8 @@ public class InterfaceMap extends JFrame {
 	public static void main(String[] args){
 		
 		//**** TEST ****//
-		double testX[] = { 10.0, 250.0, 10.0, 500.0};
-		double testY[] = { 10.0, 250.0, 500.0, 500.0};
+		double testX[] = { 0.0, 0.0, 100.0, 100.0};
+		double testY[] = { 0.0, 100.0, 0.0, 100.0};
 		//**************//
 		
 		Area east = new Area();
@@ -99,6 +105,9 @@ public class InterfaceMap extends JFrame {
 		for(int i=0; i<testX.length; i++){
 			Vertex vertice = new Vertex();
 			
+			testX[i] = ((testX[i]*XMaxPixels)/100) + XOffsetPixels;
+			testY[i] = ((testY[i]*YMaxPixels)/100) + YOffsetPixels;
+			
 			vertice.setX(testX[i]);
 			vertice.setY(testY[i]);
 			
@@ -108,7 +117,6 @@ public class InterfaceMap extends JFrame {
 			verticesList.add(vertice);
 			System.out.println("x Vertice : " + verticesList.get(i).getX());
 			System.out.println("name Vertice : " + verticesList.get(i).getName());
-			
 		}
 		
 		street = new Street();
