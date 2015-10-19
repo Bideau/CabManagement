@@ -51,7 +51,7 @@ public class InterfaceMap extends JFrame {
 		title = new JTextArea();
 		mouseListenerArea = new JTextArea();
 		area = _area;
-		map = new Map(area);
+		map = new Map(area,XMaxPixels,YMaxPixels);
 		System.out.println("Overload Constructor");
 	}
 	
@@ -79,7 +79,7 @@ public class InterfaceMap extends JFrame {
 		
 		map.setVisible(true);
 		
-		mainPanel.repaint();
+		//mainPanel.repaint();
 		
 		title.setEditable(false);
 		frame.setResizable(true);
@@ -91,8 +91,8 @@ public class InterfaceMap extends JFrame {
 	public static void main(String[] args){
 		
 		//**** TEST ****//
-		double testX[] = { 0.0, 0.0, 100.0, 100.0};
-		double testY[] = { 0.0, 100.0, 0.0, 100.0};
+		double testX[] = { 0.0, 0.0, 1.0, 1.0};
+		double testY[] = { 0.0, 1.0, 0.0, 1.0};
 		//**************//
 		
 		Area east = new Area();
@@ -105,8 +105,8 @@ public class InterfaceMap extends JFrame {
 		for(int i=0; i<testX.length; i++){
 			Vertex vertice = new Vertex();
 			
-			testX[i] = ((testX[i]*XMaxPixels)/100) + XOffsetPixels;
-			testY[i] = ((testY[i]*YMaxPixels)/100) + YOffsetPixels;
+			testX[i] = (testX[i]*XMaxPixels) + XOffsetPixels;
+			testY[i] = (testY[i]*YMaxPixels) + YOffsetPixels;
 			
 			vertice.setX(testX[i]);
 			vertice.setY(testY[i]);

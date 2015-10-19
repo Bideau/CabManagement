@@ -19,7 +19,7 @@ import structures.map.*;
 public class Client {
 
 	public static void main(String[] args) {
-		String destUri = "ws://172.30.0.190:5000";
+		String destUri = "ws://172.30.0.193:8000";
 		if (args.length > 0) {
 			destUri = args[0];
 		}
@@ -30,7 +30,6 @@ public class Client {
 		Future<Session> fut;
 		 
 		RemoteEndpoint remote = null;
-		 
 		
 		
 		try {
