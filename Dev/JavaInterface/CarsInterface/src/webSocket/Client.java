@@ -73,7 +73,6 @@ public class Client {
 		
 		cabRequest = createJsonTrameForDestination(areaDestination, vertexDestination);
 		
-		
 	}
 	
 	public String createJsonTrameForDestination(String area, String vertex){
