@@ -11,6 +11,8 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.eclipse.jetty.websocket.api.Session;
 
+import structures.map.*;
+
 /**
  * Example of a simple Echo Client.
  */
@@ -62,5 +64,25 @@ public class Client {
 				e.printStackTrace();
 			}
 		}
+		
+	}
+
+	public void sendVertex(String areaDestination, String vertexDestination) {
+		// TODO Auto-generated method stub
+		String cabRequest;
+		
+		cabRequest = createJsonTrameForDestination(areaDestination, vertexDestination);
+		
+		
+	}
+	
+	public String createJsonTrameForDestination(String area, String vertex){
+		String cabRequest;
+		
+		cabRequest = "{\"area\": \"" + area +"\",\"vertex\": \"" + vertex + "\"}";
+		
+		System.out.println("cabRequest : " + cabRequest);
+		return cabRequest;
+		
 	}
 }

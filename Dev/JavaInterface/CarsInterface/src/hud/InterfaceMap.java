@@ -1,6 +1,7 @@
 package hud;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import structures.map.*;
+import mouseClicker.*;
 
 public class InterfaceMap extends JFrame {
 
@@ -24,6 +26,7 @@ public class InterfaceMap extends JFrame {
 	private JPanel mainPanel;
 	private JPanel nothing;
 	private JTextArea title;
+	private Component mouseListenerArea;
 	
 	private Map map;
 	private Area area;
@@ -33,6 +36,7 @@ public class InterfaceMap extends JFrame {
 		mainPanel = new JPanel();
 		nothing = new JPanel();
 		title = new JTextArea();
+		mouseListenerArea = new JTextArea();
 		map = new Map();
 		area = new Area();
 	}
@@ -42,6 +46,7 @@ public class InterfaceMap extends JFrame {
 		mainPanel = new JPanel();
 		nothing = new JPanel();
 		title = new JTextArea();
+		mouseListenerArea = new JTextArea();
 		area = _area;
 		map = new Map(area);
 		System.out.println("Overload Constructor");
@@ -58,12 +63,12 @@ public class InterfaceMap extends JFrame {
 		
 		nothing = new JPanel();
 		nothing.setLayout(new FlowLayout());
-		title = new JTextArea();
 		Font fontNothing = new Font(null, Font.BOLD,60);
 		title.setFont(fontNothing);
+		mouseListenerArea.setFont(fontNothing);
 		
 		title.append(area.getName());
-		nothing.add(title);
+		nothing.add(title);		
 		
 		mainPanel.add(nothing,BorderLayout.NORTH);
 		
@@ -106,7 +111,6 @@ public class InterfaceMap extends JFrame {
 			verticesList.add(vertice);
 			System.out.println("x Vertice : " + verticesList.get(i).getX());
 			System.out.println("name Vertice : " + verticesList.get(i).getName());
-			
 		}
 		
 		street = new Street();
