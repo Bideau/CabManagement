@@ -13,7 +13,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import structures.*;
+import structures.map.Area;
+import structures.map.Bridge;
+import structures.map.Street;
+import structures.map.Vertex;
 
 public class ParserJSON {
 
@@ -35,14 +38,14 @@ public class ParserJSON {
 
 	}
 
-	private Area ParsingArea(String area) throws ParseException, JsonParseException, JsonMappingException, IOException{ 
+	private Area parsingArea(String area) throws ParseException, JsonParseException, JsonMappingException, IOException{ 
 		//System.out.println(area);
 		Area myArea = mapper.readValue(area, Area.class);
 		for(Street tmpStreet:myArea.getMap().getStreets()){
-			ParsingStreets(myArea, tmpStreet);
+			parsingStreets(myArea, tmpStreet);
 		}
 		for(Bridge tmpBridge:myArea.getMap().getBridges()){
-			ParsingBridge(myArea, tmpBridge);
+			parsingBridge(myArea, tmpBridge);
 		}
 		return myArea;
 	} 
@@ -50,7 +53,7 @@ public class ParserJSON {
 	/*
 	 * Create Streets from Json informations
 	 */
-	private Street ParsingStreets(Area myArea ,Street myStreet) throws ParseException{
+	private Street parsingStreets(Area myArea ,Street myStreet) throws ParseException{
 		Vertex firstVert = new Vertex();
 		Vertex lastVert = new Vertex();
 		int cnt=0;
@@ -75,7 +78,7 @@ public class ParserJSON {
 	/*
 	 * Create Bridge from Json informations
 	 */
-	private Bridge ParsingBridge(Area myArea,Bridge myBridge){
+	private Bridge parsingBridge(Area myArea,Bridge myBridge){
 
 		for(Vertex tempVert:myArea.getMap().getVertices()){
 			if(myBridge.getFrom().equals(tempVert.getName())){
@@ -85,7 +88,7 @@ public class ParserJSON {
 		return myBridge;
 	}
 
-	private void FrameParsing(){
+	private void parsingFrame(){
 		JSONArray array;
 		String JsonText;
 		JSONParser parser = new JSONParser();
@@ -98,7 +101,7 @@ public class ParserJSON {
 			//Parsing for areas
 			array = (JSONArray) jsonObject.get("areas");
 			for(Object obj:array){
-				System.out.println(ParsingArea(obj.toString()));
+				System.out.println(parsingArea(obj.toString()));
 			}
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -130,7 +133,7 @@ public class ParserJSON {
 
 	public static void main(String[] args){
 		ParserJSON MyParser = new ParserJSON("toto");
-		MyParser.FrameParsing();
+		MyParser.parsingFrame();
 	}
 
 }

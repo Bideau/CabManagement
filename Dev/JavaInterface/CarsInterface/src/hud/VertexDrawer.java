@@ -4,8 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
-import structures.Area;
-import structures.Vertex;
+import structures.map.*;
 
 public class VertexDrawer {
 

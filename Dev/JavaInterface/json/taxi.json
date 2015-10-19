@@ -1,0 +1,10 @@
+{"odometer": #,"destination": null,"locNow":locVertex:{
+"area": area.name,
+"locationType": "vertex",
+"location":vertex.name
+},
+"locNext":{
+"area": area.name,
+"locationType": "vertex",
+"location":vertex.name
+}}
