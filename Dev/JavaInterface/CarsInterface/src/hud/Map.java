@@ -65,7 +65,6 @@ public class Map extends JPanel implements MouseListener{
 
 		System.out.println("--------------------------");
 		
-		// 
 		g2d.dispose();
 	}
 

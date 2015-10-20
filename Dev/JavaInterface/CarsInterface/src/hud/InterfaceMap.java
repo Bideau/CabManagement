@@ -95,12 +95,12 @@ public class InterfaceMap extends JFrame {
 		double testY[] = { 0.0, 1.0, 0.0, 1.0};
 		//**************//
 		
-		Area east = new Area();
+		Area west = new Area();
 		ArrayList<Vertex> verticesList = new ArrayList<Vertex>();
 		Street street;
 		Street street2;
 		
-		east.setName("WEST");
+		west.setName("WEST");
 		
 		for(int i=0; i<testX.length; i++){
 			Vertex vertice = new Vertex();
@@ -127,12 +127,12 @@ public class InterfaceMap extends JFrame {
 		street2.setFirstVertice(verticesList.get(0));
 		street2.setSecondVertice(verticesList.get(2));
 		
-		east.getMap().getStreets().add(street);
-		east.getMap().getStreets().add(street2);
+		west.getMap().getStreets().add(street);
+		west.getMap().getStreets().add(street2);
 
-		east.getMap().setVertices(verticesList);
+		west.getMap().setVertices(verticesList);
 		
-		InterfaceMap interface1 = new InterfaceMap(east);
+		InterfaceMap interface1 = new InterfaceMap(west);
 		
 		interface1.DrawInterface();
 	}
