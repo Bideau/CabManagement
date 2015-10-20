@@ -2,5 +2,22 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/rect">
+    android:id="@+id/rect"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="TEST MY PAINTER"
+        android:id="@+id/textView" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:clickable="false"
+        android:id="@+id/toto"></LinearLayout>
+
 </LinearLayout>
