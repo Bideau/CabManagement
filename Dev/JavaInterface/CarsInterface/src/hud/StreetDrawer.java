@@ -28,12 +28,12 @@ public class StreetDrawer {
 	public void paintStreets(Graphics g){
 
 		//************* Get and draw Streets ***************//
-		for(Street object : this.area.getStreetsList()){
+		for(Street object : this.area.getMap().getStreets()){
 
-			double origineX = object.getFirstVertice().getCoord().getX();
-			double origineY = object.getFirstVertice().getCoord().getY();;
-			double destX = object.getSecondVertice().getCoord().getX();
-			double destY = object.getSecondVertice().getCoord().getY();;
+			double origineX = object.getFirstVertice().getX();
+			double origineY = object.getFirstVertice().getY();;
+			double destX = object.getSecondVertice().getX();
+			double destY = object.getSecondVertice().getY();;
 
 			origineX = origineX + (VertexWidth/2);
 			origineY = origineY + (VertexHeight/2);

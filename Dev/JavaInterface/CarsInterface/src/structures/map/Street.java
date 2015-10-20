@@ -1,4 +1,4 @@
-package structures;
+package structures.map;
 
 import java.util.ArrayList;
 
@@ -16,12 +16,7 @@ public class Street {
 		this.firstVertice = new Vertex();
 		this.secondVertice = new Vertex();
 		this.oneway = false;
-		this.path=new ArrayList<String>() {
-			{
-				add("msg 1");
-				add("msg 2");
-			}
-		};
+		this.path=new ArrayList<String>();
 	}
 	
 	// Overload Constructor

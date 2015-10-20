@@ -1,4 +1,4 @@
-package structures;
+package structures.map;
 
 public class Dest {
 	private String area;

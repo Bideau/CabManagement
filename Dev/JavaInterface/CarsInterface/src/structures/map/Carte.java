@@ -1,4 +1,4 @@
-package structures;
+package structures.map;
 
 import java.util.ArrayList;
 

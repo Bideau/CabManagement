@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import structures.Area;
-import structures.Coord;
 import structures.Street;
 import structures.Vertex;
 
@@ -65,7 +64,7 @@ public class InterfaceMap extends JFrame {
 		Font fontNothing = new Font(null, Font.BOLD,60);
 		title.setFont(fontNothing);
 		
-		title.append(area.getMyName());
+		title.append(area.getName());
 		nothing.add(title);
 		
 		mainPanel.add(nothing,BorderLayout.NORTH);
@@ -94,24 +93,20 @@ public class InterfaceMap extends JFrame {
 		ArrayList<Vertex> verticesList = new ArrayList<Vertex>();
 		Street street;
 		Street street2;
-		Vertex vertice;
-		Coord coord;
 		
-		east.setMyName("EAST");
+		east.setName("WEST");
 		
 		for(int i=0; i<testX.length; i++){
-			vertice = new Vertex();
-			coord = new Coord();
+			Vertex vertice = new Vertex();
 			
-			coord.setX(testX[i]);
-			coord.setY(testY[i]);
+			vertice.setX(testX[i]);
+			vertice.setY(testY[i]);
 			
 			//Point FixeVertice 
-			vertice.setMyName(Integer.toString(i+1));
-			vertice.setCoord(coord);
+			vertice.setName(Integer.toString(i+1));
 			
 			verticesList.add(vertice);
-			System.out.println("x Vertice : " + verticesList.get(i).getCoord().getX());
+			System.out.println("x Vertice : " + verticesList.get(i).getX());
 			System.out.println("name Vertice : " + verticesList.get(i).getName());
 			
 		}
@@ -124,10 +119,10 @@ public class InterfaceMap extends JFrame {
 		street2.setFirstVertice(verticesList.get(0));
 		street2.setSecondVertice(verticesList.get(2));
 		
-		east.getStreetsList().add(street);
-		east.getStreetsList().add(street2);
+		east.getMap().getStreets().add(street);
+		east.getMap().getStreets().add(street2);
 
-		east.setMyVerticesList(verticesList);
+		east.getMap().setVertices(verticesList);
 		
 		InterfaceMap interface1 = new InterfaceMap(east);
 		
