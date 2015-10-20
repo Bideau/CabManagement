@@ -51,7 +51,7 @@ public class InterfaceMap extends JFrame {
 		title = new JTextArea();
 		mouseListenerArea = new JTextArea();
 		area = _area;
-		map = new Map(area);
+		map = new Map(area,XMaxPixels,YMaxPixels);
 		System.out.println("Overload Constructor");
 	}
 	
@@ -79,8 +79,6 @@ public class InterfaceMap extends JFrame {
 		
 		map.setVisible(true);
 		
-		mainPanel.repaint();
-		
 		title.setEditable(false);
 		frame.setResizable(true);
 		frame.getContentPane().add(mainPanel);
@@ -91,22 +89,22 @@ public class InterfaceMap extends JFrame {
 	public static void main(String[] args){
 		
 		//**** TEST ****//
-		double testX[] = { 0.0, 0.0, 100.0, 100.0};
-		double testY[] = { 0.0, 100.0, 0.0, 100.0};
+		double testX[] = { 0.0, 0.0, 1.0, 1.0};
+		double testY[] = { 0.0, 1.0, 0.0, 1.0};
 		//**************//
 		
-		Area east = new Area();
+		Area west = new Area();
 		ArrayList<Vertex> verticesList = new ArrayList<Vertex>();
 		Street street;
 		Street street2;
 		
-		east.setName("WEST");
+		west.setName("WEST");
 		
 		for(int i=0; i<testX.length; i++){
 			Vertex vertice = new Vertex();
 			
-			testX[i] = ((testX[i]*XMaxPixels)/100) + XOffsetPixels;
-			testY[i] = ((testY[i]*YMaxPixels)/100) + YOffsetPixels;
+			testX[i] = (testX[i]*XMaxPixels) + XOffsetPixels;
+			testY[i] = (testY[i]*YMaxPixels) + YOffsetPixels;
 			
 			vertice.setX(testX[i]);
 			vertice.setY(testY[i]);
@@ -127,12 +125,12 @@ public class InterfaceMap extends JFrame {
 		street2.setFirstVertice(verticesList.get(0));
 		street2.setSecondVertice(verticesList.get(2));
 		
-		east.getMap().getStreets().add(street);
-		east.getMap().getStreets().add(street2);
+		west.getMap().getStreets().add(street);
+		west.getMap().getStreets().add(street2);
 
-		east.getMap().setVertices(verticesList);
+		west.getMap().setVertices(verticesList);
 		
-		InterfaceMap interface1 = new InterfaceMap(east);
+		InterfaceMap interface1 = new InterfaceMap(west);
 		
 		interface1.DrawInterface();
 	}
