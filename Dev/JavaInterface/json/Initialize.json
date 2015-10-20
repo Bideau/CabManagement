@@ -24,20 +24,20 @@
 			{"name": "Str_G","path": ["3","7"],"oneway": false}
 			],
 			"bridges": [
-			{"from": "6",
+			{"src": "6",
 				"to": {
 				"area": "CENTER","vertex": "8"},
 				"weight": 0.05
 			},
 			{
-			"from": "7",
+			"src": "7",
 				"to": {
 				"area": "CENTER",
 				"vertex": "10"},
 				"weight": 0.05
 			}
 			]
-		},
+		}
 	},
 	{
 		"name": "CENTER",
@@ -75,28 +75,28 @@
 			],
 			"bridges": [
 			{
-			"from": "17",
+			"src": "17",
 				"to": {
 				"area": "EAST",
 				"vertex": "21"},
 				"weight": 0.05
 			},
 			{
-			"from": "18",
+			"src": "18",
 				"to": {
 				"area": "EAST",
 				"vertex": "22"},
 				"weight": 0.05
 			},
 			{
-			"from": "20",
+			"src": "20",
 				"to": {
 				"area": "EAST",
 				"vertex": "23"},
 				"weight": 0.05
 			}
 			]
-		},
+		}
 	},
 	{
 		"name": "EAST",

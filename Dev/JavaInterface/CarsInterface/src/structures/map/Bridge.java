@@ -3,7 +3,7 @@ package structures.map;
 
 public class Bridge {
 
-	private String from;
+	private String src;
 	private Dest to;
 	private Vertex fromVertice;
 	private double weight;
@@ -12,7 +12,7 @@ public class Bridge {
 		this.fromVertice = new Vertex();
 		this.to=new Dest();
 		this.weight = 0.0;
-		this.from="";
+		this.src="";
 
 	}
 	
@@ -45,11 +45,11 @@ public class Bridge {
 	}
 
 	public String getFrom() {
-		return from;
+		return src;
 	}
 
 	public void setFrom(String from) {
-		this.from = from;
+		this.src = from;
 	}
 
 

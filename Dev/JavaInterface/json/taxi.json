@@ -1,0 +1,18 @@
+{"odometer": 9,
+"destination": {
+"area":"name",
+"location":{
+"area": "area",
+"locationType":"vertex",
+"location":"vertex"
+}},
+"locNow":{
+"area": "area",
+"locationType":"vertex",
+"location":"vertex"
+},
+"locNext":{
+"area": "area",
+"locationType":"vertex",
+"location":"vertex"
+}}
