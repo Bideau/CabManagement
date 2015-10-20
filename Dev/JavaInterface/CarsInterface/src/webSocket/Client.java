@@ -34,7 +34,7 @@ public class Client {
 			
 			socket.sendString("Initialisation");
 
-			Thread.sleep(15000);
+			Thread.sleep(30000);
 			
 			socket.awaitClose(5, TimeUnit.SECONDS);
 			

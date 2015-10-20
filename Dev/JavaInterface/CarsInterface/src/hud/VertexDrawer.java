@@ -35,6 +35,10 @@ public class VertexDrawer {
 
 		//************* Get and draw Vertices **************//
 		for(Vertex object : this.area.getMap().getVertices()){
+			
+			int heightMap = this.area.getMap().getWeight().getH();
+			int widthMap = this.area.getMap().getWeight().getW();
+			
 			x = object.getX() * xMaxPixels;
 			y = object.getY() * yMaxPixels;
 

@@ -109,7 +109,7 @@ public class SocketIO {
 		this.listArea = parserJson.getListArea();
 		
 		// West zone is the first element
-		InterfaceMap interface1 = new InterfaceMap(this.listArea.get(0));
+		InterfaceMap interface1 = new InterfaceMap(this.listArea.get(1));
 		interface1.DrawInterface();
 	}
 

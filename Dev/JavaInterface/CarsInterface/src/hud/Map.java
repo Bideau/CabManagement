@@ -83,9 +83,18 @@ public class Map extends JPanel implements MouseListener{
 			vertexX = this.area.getMap().getVertices().get(i).getX();
 			vertexY = this.area.getMap().getVertices().get(i).getY();
 
+			vertexX = vertexX * xMaxPixels;
+			vertexY = vertexY * yMaxPixels;
+			
+			System.out.println("XXXX : " + vertexX);
+			System.out.println("YYYY : " + vertexY);
+			
 			// Calcul de la distance entre les deux points
 			distance = Math.sqrt(Math.pow(vertexX - _x,2) + Math.pow(vertexY - _y,2));
+			System.out.println("DISTANCE : " + distance);
 
+			System.out.println("NAME : " + this.area.getMap().getVertices().get(i).getName());
+			
 			// A less distance with a vertex is find
 			if(distance < lessDistance){
 				// Save the less distance

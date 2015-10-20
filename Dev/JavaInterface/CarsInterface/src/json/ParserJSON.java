@@ -57,13 +57,17 @@ public class ParserJSON {
 		int cnt=0;
 
 		for(Vertex tempVert:myArea.getMap().getVertices()){
-			if(myStreet.getPath().get(1).equals(tempVert.getName())){
+			//System.out.println(myStreet.getPath().get(1).equals(tempVert.getName()));
+			if(myStreet.getPath().get(cnt).equals(tempVert.getName())){
 				switch(cnt){
-				case 1:
+				case 0:
 					firstVert=tempVert;
+					System.out.println("TOTO1 : " + firstVert);
+					cnt++;
 					break;
-				case 2:
+				case 1:
 					lastVert=tempVert;
+					System.out.println("TOTO2 : " + lastVert);
 					break;
 				}
 			}
@@ -99,7 +103,7 @@ public class ParserJSON {
 			//Parsing for areas
 			array = (JSONArray) jsonObject.get("areas");
 			for(Object obj:array){
-				System.out.println(parsingArea(obj.toString()));
+				//System.out.println(parsingArea(obj.toString()));
 				this.listArea.add(parsingArea(obj.toString()));
 			}
 		}catch (FileNotFoundException e) {
