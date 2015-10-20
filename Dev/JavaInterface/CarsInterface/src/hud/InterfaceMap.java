@@ -79,8 +79,6 @@ public class InterfaceMap extends JFrame {
 		
 		map.setVisible(true);
 		
-		//mainPanel.repaint();
-		
 		title.setEditable(false);
 		frame.setResizable(true);
 		frame.getContentPane().add(mainPanel);

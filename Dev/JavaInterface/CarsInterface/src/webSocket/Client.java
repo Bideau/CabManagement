@@ -1,7 +1,6 @@
 package webSocket;
 
 import java.net.URI;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
@@ -31,13 +30,14 @@ public class Client {
 
 			client.connect(socket, echoUri, request);
 
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			
-			socket.sendString("toto");
+			socket.sendString("Initialisation");
 
-
+			Thread.sleep(15000);
+			
 			socket.awaitClose(5, TimeUnit.SECONDS);
-
+			
 			socket.getSession().close(StatusCode.NORMAL, "I'm done");
 
 		} catch (Throwable t) {

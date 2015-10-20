@@ -33,7 +33,7 @@ public class VertexDrawer {
 			x = object.getX();
 			y = object.getY();
 
-			System.out.println("X : " + x + "\nY : " + y + "\nName : " + object.getName());
+			System.out.println("Name : " + object.getName() + "\nX : " + x + "\nY : " + y + ")");
 
 			// RECTANGLE		10.0,10.0,20.0,20.0
 			// x - y

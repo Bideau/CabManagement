@@ -1,12 +1,20 @@
 package webSocket;
 
+import structures.map.*;
+import hud.InterfaceMap;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
+import json.ParserCabInfo;
+import json.ParserJSON;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -21,14 +29,16 @@ import org.json.simple.parser.*;
 @WebSocket(maxTextMessageSize = 64 * 1024)
 public class SocketIO {
 
-	private boolean initialize = false;
-	
+	private ArrayList<Area> listArea;
+
+	private boolean initialize = false;	
 	private final CountDownLatch closeLatch;
 
 	private Session session;
 
 	public SocketIO() {
 		this.closeLatch = new CountDownLatch(1);
+		this.listArea = new ArrayList<Area>();
 	}
 
 	public boolean awaitClose(int duration, TimeUnit unit) throws InterruptedException {
@@ -58,16 +68,18 @@ public class SocketIO {
 	// and outputs them to the console.
 	@OnWebSocketMessage
 	public void onMessage(String msg) {
-		System.out.printf("Got msg: %s%n", msg);
-		
+		System.out.printf("Receive msg: %s%n", msg);
+
 		// The first Json is the initialisation of the map (Vertex, streets, bridges)
 		if(isJSONValid(msg) && initialize == false){
-			ReceiveInitialize();
+			System.out.println("msg is Json + Initialize\n");
+			ReceiveInitialize(msg);
 			initialize = true;
-		// After the initialisation, all the JSON are CabInfo to draw the cab
+			// After the initialisation, all the JSON are CabInfo to draw the cab
 		}else if(isJSONValid(msg) && initialize == true){
-			ReceiveCabInfo();
-		// If it's not a JSON frame is left untreated
+			System.out.println("msg is Json + CabInfo\n");
+			ReceiveCabInfo(msg);
+			// If it's not a JSON frame is left untreated
 		}else if(!isJSONValid(msg)){
 			System.out.println("msg is not Json\n");
 		}
@@ -76,28 +88,59 @@ public class SocketIO {
 	public void sendString(String msg){
 		try {
 			Future<Void> fut;
-			fut = session.getRemote().sendStringByFuture(msg);
-			fut.get(4, TimeUnit.SECONDS);
-
+			if(session != null){
+				fut = session.getRemote().sendStringByFuture(msg);
+				fut.get(4, TimeUnit.SECONDS);
+			}
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
 	}
 
-	public void ReceiveInitialize(){
+	// Draw Initialize map
+	public void ReceiveInitialize(String msg){
 		System.out.println("Json\n");
+		
+		// Create a new object for parse the initialize String JSON
+		ParserJSON parserJson = new ParserJSON();
+		parserJson.parsingFrame(msg);
+		
+		// Get the list of all areas
+		this.listArea = parserJson.getListArea();
+		
+		// West zone is the first element
+		InterfaceMap interface1 = new InterfaceMap(this.listArea.get(0));
+		interface1.DrawInterface();
 	}
-	
-	public void ReceiveCabInfo(){
+
+	public void ReceiveCabInfo(String msg){
 		System.out.println("CabInfo\n");
+		
+		// Create a new object for parse the initialize String JSON
+		ParserCabInfo parserTaxi = new ParserCabInfo(msg);
+		try {
+			parserTaxi.parsingFrame();
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public boolean isJSONValid(String msg) {
 		try {
+			@SuppressWarnings("unused")
 			JSONObject json = (JSONObject) new JSONParser().parse(msg);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
+			//System.out.println("NOT JSON");
 			return false;
 		}
 		return true;

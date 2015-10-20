@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -23,17 +24,17 @@ public class ParserJSON {
 	private String MyJsonFrame;
 	private Object obj ;
 	private ObjectMapper mapper;
+	private ArrayList<Area> listArea;
 
 	public ParserJSON(){
 		this("Default");
-		
 	}
-
 
 	public ParserJSON(String jsonFrame){
 		// Path Test
 		mapper = new ObjectMapper();
-		jsonFrame = "/media/guinux/Data/Cours/Actuel/IntMobile/CabManagement/Dev/JavaInterface/json/test.json";
+		this.listArea = new ArrayList<Area>();
+		//jsonFrame = "/media/guinux/Data/Cours/Actuel/IntMobile/CabManagement/Dev/JavaInterface/json/test.json";
 		this.MyJsonFrame = jsonFrame;
 
 	}
@@ -88,20 +89,21 @@ public class ParserJSON {
 		return myBridge;
 	}
 
-	private void parsingFrame(){
+	public void parsingFrame(String JsonText){
 		JSONArray array;
-		String JsonText;
+		//String JsonText;
 		JSONParser parser = new JSONParser();
 		JSONObject jsonObject= new JSONObject();
 		try {
 			//Get file data
-			JsonText=fileRead();
+			//JsonText=fileRead();
 			obj = parser.parse(JsonText);
 			jsonObject =  (JSONObject) obj;
 			//Parsing for areas
 			array = (JSONArray) jsonObject.get("areas");
 			for(Object obj:array){
 				System.out.println(parsingArea(obj.toString()));
+				this.listArea.add(parsingArea(obj.toString()));
 			}
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -130,10 +132,18 @@ public class ParserJSON {
 		br.close();
 		return JsonText;
 	}
+	
+	public ArrayList<Area> getListArea() {
+		return listArea;
+	}
 
-	public static void main(String[] args){
+	public void setListArea(ArrayList<Area> listArea) {
+		this.listArea = listArea;
+	}
+
+	/*public static void main(String[] args){
 		ParserJSON MyParser = new ParserJSON("toto");
 		MyParser.parsingFrame();
-	}
+	}*/
 
 }
