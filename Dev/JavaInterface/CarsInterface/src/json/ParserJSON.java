@@ -14,10 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import structures.map.Area;
-import structures.map.Bridge;
-import structures.map.Street;
-import structures.map.Vertex;
+import structures.map.*;
 
 public class ParserJSON {
 

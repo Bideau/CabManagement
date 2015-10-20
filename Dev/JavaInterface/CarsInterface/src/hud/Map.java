@@ -38,8 +38,8 @@ public class Map extends JPanel implements MouseListener{
 		this.xMaxPixels = xMax;
 		this.yMaxPixels = yMax;
 
-		this.streetPainter = new StreetDrawer(this.area, VertexWidth, VertexHeight);
-		this.vertexPainter = new VertexDrawer(this.area, VertexWidth, VertexHeight);
+		this.streetPainter = new StreetDrawer(this.area, VertexWidth, VertexHeight, xMaxPixels, yMaxPixels);
+		this.vertexPainter = new VertexDrawer(this.area, VertexWidth, VertexHeight, xMaxPixels, yMaxPixels);
 		this.cabPainter = new CabDrawer();
 	}
 

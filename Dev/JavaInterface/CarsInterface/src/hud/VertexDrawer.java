@@ -15,25 +15,30 @@ public class VertexDrawer {
 	
 	private double VertexHeight = 0.0;
 	private double VertexWidth = 0.0;
+	
+	private int xMaxPixels;
+	private int yMaxPixels;
 
 	public VertexDrawer(){
 		area = new Area();
 	}
 
-	public VertexDrawer(Area _area, double _vertexWidth, double _vertexHeight){
+	public VertexDrawer(Area _area, double _vertexWidth, double _vertexHeight, int xMaxPixels, int yMaxPixels){
 		this.area = _area;
 		this.VertexHeight = _vertexHeight;
 		this.VertexWidth = _vertexWidth;
+		this.xMaxPixels = xMaxPixels;
+		this.yMaxPixels = yMaxPixels;
 	}
 
 	public void paintVertices(Graphics2D g2d){
 
 		//************* Get and draw Vertices **************//
 		for(Vertex object : this.area.getMap().getVertices()){
-			x = object.getX();
-			y = object.getY();
+			x = object.getX() * xMaxPixels;
+			y = object.getY() * yMaxPixels;
 
-			System.out.println("Name : " + object.getName() + "\nX : " + x + "\nY : " + y + ")");
+			System.out.println("Name : " + object.getName() + "\nX : " + x + "\nY : " + y);
 
 			// RECTANGLE		10.0,10.0,20.0,20.0
 			// x - y

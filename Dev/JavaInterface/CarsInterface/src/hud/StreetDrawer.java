@@ -14,14 +14,19 @@ public class StreetDrawer {
 	private double VertexHeight = 0.0;
 	private double VertexWidth = 0.0;
 	
+	private int xMaxPixels;
+	private int yMaxPixels;
+	
 	public StreetDrawer(){
 		this.area = new Area();
 	}
 	
-	public StreetDrawer(Area _area, double _vertexWidth, double _vertexHeight){
+	public StreetDrawer(Area _area, double _vertexWidth, double _vertexHeight, int xMaxPixels, int yMaxPixels){
 		this.area = _area;
 		this.VertexHeight = _vertexHeight;
 		this.VertexWidth = _vertexWidth;
+		this.xMaxPixels = xMaxPixels;
+		this.yMaxPixels = yMaxPixels;
 	}
 
 	public void paintStreets(Graphics g){

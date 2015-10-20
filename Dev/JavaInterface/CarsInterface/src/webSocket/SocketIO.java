@@ -118,6 +118,7 @@ public class SocketIO {
 		
 		// Create a new object for parse the initialize String JSON
 		ParserCabInfo parserTaxi = new ParserCabInfo(msg);
+		
 		try {
 			parserTaxi.parsingFrame();
 		} catch (JsonParseException e) {
