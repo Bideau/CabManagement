@@ -1,0 +1,3 @@
+class Dest:
+    area = ''
+    vertex = ''
