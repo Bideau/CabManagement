@@ -4,15 +4,15 @@
 "location":{
 "area": "Quartier Nord",
 "locationType":"vertex",
-"location":"m"
+"location":"b"
 }},
 "locNow":{
 "area": "Quartier Nord",
 "locationType":"vertex",
-"location":"b"
+"location":"m"
 },
 "locNext":{
 "area": "area",
 "locationType":"vertex",
-"location":"m"
+"location":"b"
 }}

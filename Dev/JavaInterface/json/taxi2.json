@@ -1,18 +1,18 @@
 {"odometer": 9,
 "destination": {
-"area":"Quartier Nord",
+"area":"Quartier Sud",
 "location":{
-"area": "Quartier Nord",
+"area": "Quartier Sud",
 "locationType":"vertex",
 "location":"m"
 }},
 "locNow":{
 "area": "Quartier Nord",
 "locationType":"vertex",
-"location":"b"
+"location":"m"
 },
 "locNext":{
-"area": "area",
+"area": "Quartier Nord",
 "locationType":"vertex",
-"location":"m"
+"location":"b"
 }}
