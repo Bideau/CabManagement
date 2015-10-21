@@ -10,3 +10,5 @@ class Vertex:
             self.x = value['x']
         if 'y' in value:
             self.y = value['y']
+    def __str__(self):
+        return "Name : %s; X : %s; Y : %s" % (self.name,self.x,self.y)

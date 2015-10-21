@@ -26,3 +26,14 @@ class Map:
                 self.bridgesList.append(tmpBridge)
         if 'weight' in value:
             self.weight.parsing(value['weight'])
+    def __str__(self):
+        string= "Weight : %s; Vertices : " % self.weight
+        for i in self.verticesList:
+            string = " %s %s" % (string,i)
+        string = " %s; Street : " % (string)
+        for i in self.streetsList:
+            string = " %s %s" % (string,i)
+        string = " %s; Bridge : " % (string)
+        for i in self.bridgesList:
+            string = " %s %s" % (string,i)
+        return string
