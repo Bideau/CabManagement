@@ -21,7 +21,7 @@ class myParsing:
                 #tmpArea.name = i['name']
                 tmpArea.parsing(i)
                 self.carte.append(tmpArea)
-            print self.carte[1]
+            print self.carte[0]
         myFile.close()
 
     # Parsing function of the cab
