@@ -33,14 +33,11 @@ public class StreetDrawer {
 
 		//************* Get and draw Streets ***************//
 		for(Street object : this.area.getMap().getStreets()){
-			System.out.println(object);
+			
 			double origineX = object.getFirstVertice().getX();
 			double origineY = object.getFirstVertice().getY();
 			double destX = object.getSecondVertice().getX();
 			double destY = object.getSecondVertice().getY();
-
-			System.out.println("origin : "+origineX+" "+origineY);
-			System.out.println("dest : "+destX + " "+destY);
 			
 			origineX = (origineX * xMaxPixels)+(VertexWidth/2);
 			origineY = (origineY * yMaxPixels)+(VertexHeight/2);
@@ -48,9 +45,6 @@ public class StreetDrawer {
 			destX = (destX * xMaxPixels)+(VertexWidth/2);
 			destY = (destY * yMaxPixels)+(VertexHeight/2);
 			
-			
-			System.out.println("origin : "+origineX+" "+origineY);
-			System.out.println("dest : "+destX + " "+destY);
 			// LINE
 			// x Origine  -  y Origine
 			// x Dest     -  y Dest
@@ -60,9 +54,6 @@ public class StreetDrawer {
 			((Graphics2D) g).setStroke(new BasicStroke(6));
 			g.setColor(new Color(Integer.parseInt("0000FF",16)));
 
-			System.out.println("LINE O : " + (int)Math.round(origineX) + "    " + (int)Math.round(origineY));
-			System.out.println("LINE D : " + (int)Math.round(destX) + "    " + (int)Math.round(destY));
-			
 			// Draw Street
 			g.drawLine((int)Math.round(origineX),
 					(int)Math.round(origineY),

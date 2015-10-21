@@ -13,21 +13,17 @@ public class Bridge {
 		this.to=new Dest();
 		this.weight = 0.0;
 		this.src="";
-
 	}
 	
 	public Bridge(Vertex _fromVertice, double _weight){
 		this.fromVertice = _fromVertice;
 		this.weight = _weight;
-
 	}
 
 	// ******************* GETTERS **************//
 	public Vertex getFromVertice() {
 		return fromVertice;
 	}
-
-
 
 	public double getMyWeight() {
 		return weight;
@@ -37,8 +33,6 @@ public class Bridge {
 	public void setFromVertice(Vertex _fromVertice) {
 		this.fromVertice = _fromVertice;
 	}
-	
-
 	
 	public void setMyWeight(double _myWeight) {
 		this.weight = _myWeight;
@@ -51,7 +45,6 @@ public class Bridge {
 	public void setFrom(String from) {
 		this.src = from;
 	}
-
 
 	public double getWeight() {
 		return weight;

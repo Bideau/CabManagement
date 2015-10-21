@@ -22,6 +22,7 @@ public class Map extends JPanel implements MouseListener{
 	private Area area;
 	private StreetDrawer streetPainter;
 	private VertexDrawer vertexPainter;
+	private BridgeDrawer bridgePainter;
 	private CabDrawer cabPainter;
 
 	private static double VertexHeight = 30.0;
@@ -40,6 +41,7 @@ public class Map extends JPanel implements MouseListener{
 
 		this.streetPainter = new StreetDrawer(this.area, VertexWidth, VertexHeight, xMaxPixels, yMaxPixels);
 		this.vertexPainter = new VertexDrawer(this.area, VertexWidth, VertexHeight, xMaxPixels, yMaxPixels);
+		this.bridgePainter = new BridgeDrawer(this.area, VertexWidth, VertexHeight, xMaxPixels, yMaxPixels);
 		this.cabPainter = new CabDrawer();
 	}
 
@@ -55,6 +57,9 @@ public class Map extends JPanel implements MouseListener{
 		// Draw the streets
 		this.streetPainter.paintStreets(g2d);
 
+		// Draw the streets
+		this.bridgePainter.paintBridge(g2d);
+
 		// Draw the vertices
 		this.vertexPainter.paintVertices(g2d);
 
@@ -64,7 +69,7 @@ public class Map extends JPanel implements MouseListener{
 		this.cabPainter.paintCab(g2d);
 
 		System.out.println("--------------------------");
-		
+
 		g2d.dispose();
 	}
 
@@ -85,16 +90,16 @@ public class Map extends JPanel implements MouseListener{
 
 			vertexX = vertexX * xMaxPixels;
 			vertexY = vertexY * yMaxPixels;
-			
+
 			System.out.println("XXXX : " + vertexX);
 			System.out.println("YYYY : " + vertexY);
-			
+
 			// Calcul de la distance entre les deux points
 			distance = Math.sqrt(Math.pow(vertexX - _x,2) + Math.pow(vertexY - _y,2));
 			System.out.println("DISTANCE : " + distance);
 
 			System.out.println("NAME : " + this.area.getMap().getVertices().get(i).getName());
-			
+
 			// A less distance with a vertex is find
 			if(distance < lessDistance){
 				// Save the less distance
