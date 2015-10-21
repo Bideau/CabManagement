@@ -11,16 +11,20 @@ public class StreetDrawer {
 
 	Area area;
 	
+	// Size of the vertex on the screen
 	private double VertexHeight = 0.0;
 	private double VertexWidth = 0.0;
 	
+	// Size of the screen. Use for Scaling.
 	private int xMaxPixels;
 	private int yMaxPixels;
 	
+	// Default constructor
 	public StreetDrawer(){
 		this.area = new Area();
 	}
 	
+	// Overload constructor
 	public StreetDrawer(Area _area, double _vertexWidth, double _vertexHeight, int xMaxPixels, int yMaxPixels){
 		this.area = _area;
 		this.VertexHeight = _vertexHeight;
@@ -29,19 +33,21 @@ public class StreetDrawer {
 		this.yMaxPixels = yMaxPixels;
 	}
 
+	// Function for draw the streets on the screen
 	public void paintStreets(Graphics g){
 
 		//************* Get and draw Streets ***************//
 		for(Street object : this.area.getMap().getStreets()){
 			
+			// Get the coordonates of the two vertex
 			double origineX = object.getFirstVertice().getX();
 			double origineY = object.getFirstVertice().getY();
 			double destX = object.getSecondVertice().getX();
 			double destY = object.getSecondVertice().getY();
 			
+			// Scaling with size of the screen
 			origineX = (origineX * xMaxPixels)+(VertexWidth/2);
 			origineY = (origineY * yMaxPixels)+(VertexHeight/2);
-
 			destX = (destX * xMaxPixels)+(VertexWidth/2);
 			destY = (destY * yMaxPixels)+(VertexHeight/2);
 			
@@ -60,7 +66,5 @@ public class StreetDrawer {
 					(int)Math.round(destX),
 					(int)Math.round(destY));
 		}
-
 	}
-
 }

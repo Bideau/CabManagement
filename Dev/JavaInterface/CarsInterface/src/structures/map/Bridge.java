@@ -8,6 +8,7 @@ public class Bridge {
 	private Vertex fromVertice;
 	private double weight;
 	
+	// Default constructor
 	public Bridge(){
 		this.fromVertice = new Vertex();
 		this.to=new Dest();
@@ -15,6 +16,7 @@ public class Bridge {
 		this.src="";
 	}
 	
+	// Overload constructor
 	public Bridge(Vertex _fromVertice, double _weight){
 		this.fromVertice = _fromVertice;
 		this.weight = _weight;
@@ -28,6 +30,18 @@ public class Bridge {
 	public double getMyWeight() {
 		return weight;
 	}
+	
+	public String getSrc() {
+		return src;
+	}
+	
+	public double getWeight() {
+		return weight;
+	}
+	
+	public Dest getTo() {
+		return to;
+	}
 
 	// **************** SETTERS *****************//
 	public void setFromVertice(Vertex _fromVertice) {
@@ -38,26 +52,14 @@ public class Bridge {
 		this.weight = _myWeight;
 	}
 
-	public String getFrom() {
-		return src;
-	}
-
-	public void setFrom(String from) {
+	public void setSrc(String from) {
 		this.src = from;
-	}
-
-	public double getWeight() {
-		return weight;
 	}
 
 	public void setWeight(double weight) {
 		this.weight = weight;
 	}
-
-	public Dest getTo() {
-		return to;
-	}
-
+	
 	public void setTo(Dest to) {
 		this.to = to;
 	}

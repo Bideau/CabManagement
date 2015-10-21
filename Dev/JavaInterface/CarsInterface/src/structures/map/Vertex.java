@@ -14,10 +14,10 @@ public class Vertex {
 	}
 	
 	// Overloaded constructor
-	public Vertex(String _name, double _x, double _y){
-		this.name = _name;
-		this.x = _x;
-		this.y = _y;
+	public Vertex(String name, double x, double y){
+		this.name = name;
+		this.x = x;
+		this.y = y;
 	}
 
 	// ****************** GETTERS ****************//
@@ -25,32 +25,31 @@ public class Vertex {
 		return name;
 	}
 	
-
-	// ***************** SETTERS ****************//
-	public void setName(String _name) {
-		this.name = _name;
-	}
-
 	public double getX() {
 		return x;
+	}
+	
+	public double getY() {
+		return y;
+	}
+	
+
+	// ***************** SETTERS ****************//
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setX(double x) {
 		this.x = x;
 	}
 
-	public double getY() {
-		return y;
-	}
-
 	public void setY(double y) {
 		this.y = y;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "Vertex [name=" + name + ", x=" + x + ", y=" + y + "]";
 	}
-	
-
 }

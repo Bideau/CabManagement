@@ -8,19 +8,24 @@ import org.eclipse.jetty.websocket.client.WebSocketClient;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.StatusCode;
 
-/**
- * Example of a simple Echo Client.
- */
 public class Client {
 
+	private static SocketIO socket;
+	
+	// Main : The program starts here
 	public static void main(String[] args) {
+		
+		// IP adress and port of the Python server
 		String destUri = "ws://172.30.0.193:8000";
+		
+		// Take the informations of arguments if they are
 		if (args.length > 0) {
 			destUri = args[0];
 		}
+		
 		// Creation of webSocket
 		WebSocketClient client = new WebSocketClient();
-		SocketIO socket = new SocketIO();
+		socket = new SocketIO();
 
 		@SuppressWarnings("unused") Session session = null;
 		try {
@@ -28,15 +33,22 @@ public class Client {
 			URI echoUri = new URI(destUri);
 			ClientUpgradeRequest request = new ClientUpgradeRequest();
 
+			// Connexion between client and server
 			client.connect(socket, echoUri, request);
 
+			// Wait 2s
 			Thread.sleep(2000);
 			
 			socket.sendString("Initialisation");
-
-			Thread.sleep(30000);
 			
-			socket.awaitClose(5, TimeUnit.SECONDS);
+			while(socket.isSocketOpened()){
+				// Wait 2s
+				Thread.sleep(2000);
+			}
+			
+			System.out.println("Sortie de la boucle d'ecoute");
+			
+			socket.awaitClose(2, TimeUnit.SECONDS);
 			
 			socket.getSession().close(StatusCode.NORMAL, "I'm done");
 
@@ -57,7 +69,16 @@ public class Client {
 		String cabRequest;
 
 		cabRequest = createJsonTrameForDestination(areaDestination, vertexDestination);
+		
+		Client.getSocket().sendString(cabRequest);
+	}
 
+	public static SocketIO getSocket() {
+		return socket;
+	}
+
+	public static void setSocket(SocketIO socket) {
+		Client.socket = socket;
 	}
 
 	public String createJsonTrameForDestination(String area, String vertex){

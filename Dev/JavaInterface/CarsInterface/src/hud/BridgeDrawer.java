@@ -39,7 +39,7 @@ public class BridgeDrawer {
 			x = (object.getFromVertice().getX() * xMaxPixels);
 			y = object.getFromVertice().getY() * yMaxPixels;
 
-			System.out.println("\nX : " + x + "\nY : " + y);
+			//System.out.println("\nX : " + x + "\nY : " + y);
 
 			// RECTANGLE		10.0,10.0,20.0,20.0
 			// x - y

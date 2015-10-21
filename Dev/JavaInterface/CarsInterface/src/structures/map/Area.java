@@ -3,9 +3,12 @@ package structures.map;
 
 public class Area {
 
+	// Name of the Area (East, Center, West, ...)
 	private String name;
+	// Object with the differents ArrayList of the map (Streets, Vertices, Bridges)
 	private Carte map;
 	
+	// Default Constructor
 	public Area(){
 		name = "Default";
 		map=new Carte();
@@ -17,13 +20,14 @@ public class Area {
 		return name;
 	}
 	
-	// **************** SETTERS ****************//
-	public void setName(String _name) {
-		this.name = _name;
-	}
-
 	public Carte getMap() {
 		return map;
+	}
+	
+	// **************** SETTERS ****************//
+	
+	public void setName(String _name) {
+		this.name = _name;
 	}
 
 	public void setMap(Carte map) {

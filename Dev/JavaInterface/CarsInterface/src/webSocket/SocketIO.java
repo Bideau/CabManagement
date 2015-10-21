@@ -1,6 +1,7 @@
 package webSocket;
 
 import structures.map.*;
+import structures.taxi.CabInfo;
 import hud.InterfaceMap;
 
 import java.io.IOException;
@@ -30,8 +31,10 @@ import org.json.simple.parser.*;
 public class SocketIO {
 
 	private ArrayList<Area> listArea;
+	private InterfaceMap interface1;
 
 	private boolean initialize = false;	
+	private boolean socketOpened = true;
 	private final CountDownLatch closeLatch;
 
 	private Session session;
@@ -58,7 +61,6 @@ public class SocketIO {
 		this.session = session;
 		try {
 			sendString("I'm connected !");
-
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -100,38 +102,58 @@ public class SocketIO {
 	// Draw Initialize map
 	public void ReceiveInitialize(String msg){
 		System.out.println("Json\n");
-		
+
 		// Create a new object for parse the initialize String JSON
 		ParserJSON parserJson = new ParserJSON();
 		parserJson.parsingFrame(msg);
-		
+
 		// Get the list of all areas
 		this.listArea = parserJson.getListArea();
-		
+
 		// West zone is the first element
-		InterfaceMap interface1 = new InterfaceMap(this.listArea.get(0));
+		interface1 = new InterfaceMap(this.listArea.get(0),this);
 		interface1.DrawInterface();
 	}
 
 	public void ReceiveCabInfo(String msg){
-		System.out.println("CabInfo\n");
-		
+
 		// Create a new object for parse the initialize String JSON
-		ParserCabInfo parserTaxi = new ParserCabInfo(msg);
+		ParserCabInfo parserTaxi = new ParserCabInfo();
+		
+		CabInfo cab = null;
+
+		try {
+
+			// Set the informations in the object cab
+			cab = parserTaxi.parsingFrame(msg);
+
+		} catch (JsonParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (JsonMappingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		System.out.println("Name : " + cab.getLocNow().getLocation());
+
+		// Draw the cab's position
+		interface1.getMap().getCabPainter().setCabInfo(cab);
+		
+		// Repaint for the cab position
+		interface1.getMap().repaint();
+		
+		System.out.println("REPAINT\n");
 		
 		try {
-			parserTaxi.parsingFrame();
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
 	public boolean isJSONValid(String msg) {
@@ -145,6 +167,14 @@ public class SocketIO {
 			return false;
 		}
 		return true;
+	}
+
+	public boolean isSocketOpened() {
+		return socketOpened;
+	}
+
+	public void setSocketOpened(boolean socketOpened) {
+		this.socketOpened = socketOpened;
 	}
 
 	public Session getSession() {
