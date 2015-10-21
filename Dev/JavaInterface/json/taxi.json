@@ -1,10 +1,10 @@
 {"odometer": #,"destination": null,"locNow":locVertex:{
-"area": area.name,
+"area": "Quartier Nord",
 "locationType": "vertex",
-"location":vertex.name
+"location": "m"
 },
 "locNext":{
-"area": area.name,
+"area": "Quartier Nord",
 "locationType": "vertex",
-"location":vertex.name
+"location":"b"
 }}
