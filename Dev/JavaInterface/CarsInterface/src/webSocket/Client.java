@@ -39,8 +39,10 @@ public class Client {
 			// Wait 2s
 			Thread.sleep(2000);
 			
+			// Send "Initialisation" for get the map to draw
 			socket.sendString("Initialisation");
 			
+			// Loop awaiting receipt and sending
 			while(socket.isSocketOpened()){
 				// Wait 2s
 				Thread.sleep(2000);
@@ -48,6 +50,7 @@ public class Client {
 			
 			System.out.println("Sortie de la boucle d'ecoute");
 			
+			// Close the connection with the Python server
 			socket.awaitClose(2, TimeUnit.SECONDS);
 			
 			socket.getSession().close(StatusCode.NORMAL, "I'm done");
@@ -64,30 +67,38 @@ public class Client {
 		}
 	}
 
+	// Function which send the cabRequest to indicate a direction (Vertex)
 	public void sendVertex(String areaDestination, String vertexDestination) {
 		// TODO Auto-generated method stub
 		String cabRequest;
 
+		// Creation of the JsonTrame
 		cabRequest = createJsonTrameForDestination(areaDestination, vertexDestination);
 		
+		// Send the Trame to the python server
 		Client.getSocket().sendString(cabRequest);
-	}
-
-	public static SocketIO getSocket() {
-		return socket;
-	}
-
-	public static void setSocket(SocketIO socket) {
-		Client.socket = socket;
 	}
 
 	public String createJsonTrameForDestination(String area, String vertex){
 		String cabRequest;
 
+		// Create the Json trame
 		cabRequest = "{\"area\": \"" + area +"\",\"vertex\": \"" + vertex + "\"}";
 
 		System.out.println("cabRequest : " + cabRequest);
 		return cabRequest;
 
+	}
+	
+	//**************** GETTERS ***************//
+	
+	public static SocketIO getSocket() {
+		return socket;
+	}
+
+	//**************** SETTERS ***************//
+	
+	public static void setSocket(SocketIO socket) {
+		Client.socket = socket;
 	}
 }

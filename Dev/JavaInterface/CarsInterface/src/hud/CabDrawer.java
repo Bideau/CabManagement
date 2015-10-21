@@ -89,7 +89,7 @@ public class CabDrawer implements ImageObserver {
 		System.out.println("DOLOREAN DRAWER");
 		
 		try {
-			Image dbImage = ImageIO.read(new File("img/dolorean_pict.png"));
+			Image dbImage = ImageIO.read(new File("img/dolorean_droite.png"));
 			g2d.drawImage(dbImage, (int)this.x, (int)this.y, (int)CabWidth, (int)CabHeight,this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

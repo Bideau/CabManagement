@@ -10,7 +10,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 import json.ParserCabInfo;
 import json.ParserJSON;
 
@@ -24,9 +23,6 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
-/**
- * Basic Echo Client Socket
- */
 @WebSocket(maxTextMessageSize = 64 * 1024)
 public class SocketIO {
 
@@ -39,6 +35,7 @@ public class SocketIO {
 
 	private Session session;
 
+	// Default constructor
 	public SocketIO() {
 		this.closeLatch = new CountDownLatch(1);
 		this.listArea = new ArrayList<Area>();
@@ -48,6 +45,7 @@ public class SocketIO {
 		return this.closeLatch.await(duration, unit);
 	}
 
+	// Function to close the connection with the server
 	@OnWebSocketClose
 	public void onClose(int statusCode, String reason) {
 		System.out.printf("Connection closed: %d - %s%n", statusCode, reason);
@@ -55,6 +53,7 @@ public class SocketIO {
 		this.closeLatch.countDown();
 	}
 
+	// Function to connect with the server
 	@OnWebSocketConnect
 	public void onConnect(Session session) {
 		System.out.printf("Got connect: %s%n", session);
@@ -67,7 +66,6 @@ public class SocketIO {
 	}
 
 	// The onMessage(String msg) receives the responses from the remote server WebSocket
-	// and outputs them to the console.
 	@OnWebSocketMessage
 	public void onMessage(String msg) {
 		System.out.printf("Receive msg: %s%n", msg);
@@ -87,6 +85,7 @@ public class SocketIO {
 		}
 	}
 
+	// Function to send a string to the server
 	public void sendString(String msg){
 		try {
 			Future<Void> fut;
@@ -115,6 +114,7 @@ public class SocketIO {
 		interface1.DrawInterface();
 	}
 
+	// This function receive the CabInfo JSON trame
 	public void ReceiveCabInfo(String msg){
 
 		// Create a new object for parse the initialize String JSON
@@ -123,7 +123,6 @@ public class SocketIO {
 		CabInfo cab = null;
 
 		try {
-
 			// Set the informations in the object cab
 			cab = parserTaxi.parsingFrame(msg);
 
@@ -148,6 +147,7 @@ public class SocketIO {
 		
 		System.out.println("REPAINT\n");
 		
+		// Wait 1s
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
@@ -169,20 +169,23 @@ public class SocketIO {
 		return true;
 	}
 
+	//**************** GETTERS ****************//
+	
 	public boolean isSocketOpened() {
 		return socketOpened;
 	}
-
-	public void setSocketOpened(boolean socketOpened) {
-		this.socketOpened = socketOpened;
-	}
-
+	
 	public Session getSession() {
 		return session;
+	}
+
+	//************** SETTERS *****************//
+	
+	public void setSocketOpened(boolean socketOpened) {
+		this.socketOpened = socketOpened;
 	}
 
 	public void setSession(Session session) {
 		this.session = session;
 	}
-
 }
