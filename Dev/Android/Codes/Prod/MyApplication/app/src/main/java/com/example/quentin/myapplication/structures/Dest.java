@@ -7,7 +7,6 @@ public class Dest {
 	public Dest() {
 		this.area ="";
 		this.vertex = "";
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getArea() {
