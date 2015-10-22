@@ -1,6 +1,7 @@
 package webSocket;
 
 import structures.map.*;
+import structures.taxi.CabInfo;
 import hud.InterfaceMap;
 
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 import json.ParserCabInfo;
 import json.ParserJSON;
 
@@ -23,19 +23,19 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
-/**
- * Basic Echo Client Socket
- */
 @WebSocket(maxTextMessageSize = 64 * 1024)
 public class SocketIO {
 
 	private ArrayList<Area> listArea;
+	private InterfaceMap interface1;
 
 	private boolean initialize = false;	
+	private boolean socketOpened = true;
 	private final CountDownLatch closeLatch;
 
 	private Session session;
 
+	// Default constructor
 	public SocketIO() {
 		this.closeLatch = new CountDownLatch(1);
 		this.listArea = new ArrayList<Area>();
@@ -45,6 +45,7 @@ public class SocketIO {
 		return this.closeLatch.await(duration, unit);
 	}
 
+	// Function to close the connection with the server
 	@OnWebSocketClose
 	public void onClose(int statusCode, String reason) {
 		System.out.printf("Connection closed: %d - %s%n", statusCode, reason);
@@ -52,20 +53,19 @@ public class SocketIO {
 		this.closeLatch.countDown();
 	}
 
+	// Function to connect with the server
 	@OnWebSocketConnect
 	public void onConnect(Session session) {
 		System.out.printf("Got connect: %s%n", session);
 		this.session = session;
 		try {
 			sendString("I'm connected !");
-
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
 	}
 
 	// The onMessage(String msg) receives the responses from the remote server WebSocket
-	// and outputs them to the console.
 	@OnWebSocketMessage
 	public void onMessage(String msg) {
 		System.out.printf("Receive msg: %s%n", msg);
@@ -85,6 +85,7 @@ public class SocketIO {
 		}
 	}
 
+	// Function to send a string to the server
 	public void sendString(String msg){
 		try {
 			Future<Void> fut;
@@ -100,38 +101,59 @@ public class SocketIO {
 	// Draw Initialize map
 	public void ReceiveInitialize(String msg){
 		System.out.println("Json\n");
-		
+
 		// Create a new object for parse the initialize String JSON
 		ParserJSON parserJson = new ParserJSON();
 		parserJson.parsingFrame(msg);
-		
+
 		// Get the list of all areas
 		this.listArea = parserJson.getListArea();
-		
+
 		// West zone is the first element
-		InterfaceMap interface1 = new InterfaceMap(this.listArea.get(1));
+		interface1 = new InterfaceMap(this.listArea.get(0),this);
 		interface1.DrawInterface();
 	}
 
+	// This function receive the CabInfo JSON trame
 	public void ReceiveCabInfo(String msg){
-		System.out.println("CabInfo\n");
-		
+
 		// Create a new object for parse the initialize String JSON
-		ParserCabInfo parserTaxi = new ParserCabInfo(msg);
+		ParserCabInfo parserTaxi = new ParserCabInfo();
 		
+		CabInfo cab = null;
+
 		try {
-			parserTaxi.parsingFrame();
-		} catch (JsonParseException e) {
+			// Set the informations in the object cab
+			cab = parserTaxi.parsingFrame(msg);
+
+		} catch (JsonParseException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
+			e1.printStackTrace();
+		} catch (JsonMappingException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		System.out.println("Name : " + cab.getLocNow().getLocation());
+
+		// Draw the cab's position
+		interface1.getMap().getCabPainter().setCabInfo(cab);
+		
+		// Repaint for the cab position
+		interface1.getMap().repaint();
+		
+		System.out.println("REPAINT\n");
+		
+		// Wait 1s
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
 	public boolean isJSONValid(String msg) {
@@ -147,12 +169,23 @@ public class SocketIO {
 		return true;
 	}
 
+	//**************** GETTERS ****************//
+	
+	public boolean isSocketOpened() {
+		return socketOpened;
+	}
+	
 	public Session getSession() {
 		return session;
+	}
+
+	//************** SETTERS *****************//
+	
+	public void setSocketOpened(boolean socketOpened) {
+		this.socketOpened = socketOpened;
 	}
 
 	public void setSession(Session session) {
 		this.session = session;
 	}
-
 }

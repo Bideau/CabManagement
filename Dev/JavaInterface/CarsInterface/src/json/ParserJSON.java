@@ -1,14 +1,15 @@
 package json;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+// Jackson lib to put the JSON's information in a object
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+
+// Json.Simple lib to parse the differents areas before use Jackson lib
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,33 +19,34 @@ import structures.map.*;
 
 public class ParserJSON {
 
-	private String MyJsonFrame;
 	private Object obj ;
 	private ObjectMapper mapper;
 	private ArrayList<Area> listArea;
 
+	// Default constructor
 	public ParserJSON(){
 		this("Default");
 	}
 
+	// Overload constructor
 	public ParserJSON(String jsonFrame){
-		// Path Test
-		mapper = new ObjectMapper();
+		this.mapper = new ObjectMapper();
 		this.listArea = new ArrayList<Area>();
-		//jsonFrame = "/media/guinux/Data/Cours/Actuel/IntMobile/CabManagement/Dev/JavaInterface/json/test.json";
-		this.MyJsonFrame = jsonFrame;
-
 	}
 
 	private Area parsingArea(String area) throws ParseException, JsonParseException, JsonMappingException, IOException{ 
-		//System.out.println(area);
-		Area myArea = mapper.readValue(area, Area.class);
+		
+		// Jackson lib function to put the JSON's informations in an object
+		Area myArea = this.mapper.readValue(area, Area.class);
+		
+		// Parsing streets and bridges in another functions
 		for(Street tmpStreet:myArea.getMap().getStreets()){
 			parsingStreets(myArea, tmpStreet);
 		}
 		for(Bridge tmpBridge:myArea.getMap().getBridges()){
 			parsingBridge(myArea, tmpBridge);
 		}
+		
 		return myArea;
 	} 
 
@@ -57,17 +59,14 @@ public class ParserJSON {
 		int cnt=0;
 
 		for(Vertex tempVert:myArea.getMap().getVertices()){
-			//System.out.println(myStreet.getPath().get(1).equals(tempVert.getName()));
 			if(myStreet.getPath().get(cnt).equals(tempVert.getName())){
 				switch(cnt){
 				case 0:
 					firstVert=tempVert;
-					System.out.println("TOTO1 : " + firstVert);
 					cnt++;
 					break;
 				case 1:
 					lastVert=tempVert;
-					System.out.println("TOTO2 : " + lastVert);
 					break;
 				}
 			}
@@ -83,7 +82,7 @@ public class ParserJSON {
 	private Bridge parsingBridge(Area myArea,Bridge myBridge){
 
 		for(Vertex tempVert:myArea.getMap().getVertices()){
-			if(myBridge.getFrom().equals(tempVert.getName())){
+			if(myBridge.getSrc().equals(tempVert.getName())){
 				myBridge.setFromVertice(tempVert);
 			}
 		}
@@ -114,37 +113,16 @@ public class ParserJSON {
 			e.printStackTrace();
 		}
 	}
-
-	private String fileRead() throws IOException{
-		//******* FILE TO STRING ********//
-		FileReader reader;
-		BufferedReader br;
-		StringBuilder builder = new StringBuilder();
-		String aux = "";
-		String JsonText;
-
-		reader = new FileReader(this.MyJsonFrame);
-		br = new BufferedReader(reader);
-
-		while ((aux = br.readLine()) != null) {
-			builder.append(aux);
-		}
-		JsonText = builder.toString();
-		br.close();
-		return JsonText;
-	}
+	
+	//************** GETTERS **************//
 	
 	public ArrayList<Area> getListArea() {
 		return listArea;
 	}
 
+	//************** SETTERS *************//
+	
 	public void setListArea(ArrayList<Area> listArea) {
 		this.listArea = listArea;
 	}
-
-	/*public static void main(String[] args){
-		ParserJSON MyParser = new ParserJSON("toto");
-		MyParser.parsingFrame();
-	}*/
-
 }

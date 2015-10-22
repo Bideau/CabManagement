@@ -7,44 +7,50 @@ public class LocVertex {
 	private String locationType;
 	private int progression;
 	
+	// Default constructor
 	public LocVertex() {
 		area="";
 		location="";
 		locationType="";
-		progression=0;
+		progression=1;
 	}
+	
+	//******************* GETTERS *****************//
 	
 	public String getArea() {
 		return area;
-	}
-	
-	public void setArea(String area) {
-		this.area = area;
 	}
 	
 	public String getLocation() {
 		return location;
 	}
 	
-	public void setLocation(String location) {
-		this.location = location;
+	public void setArea(String area) {
+		this.area = area;
 	}
 	
 	public String getLocationType() {
 		return locationType;
 	}
 	
-	public void setLocationType(String locationType) {
-		this.locationType = locationType;
-	}
-	
 	public int getProgression() {
 		return progression;
+	}
+	
+	//***************** SETTERS *****************//
+	
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+	public void setLocationType(String locationType) {
+		this.locationType = locationType;
 	}
 	
 	public void setProgression(int progression) {
 		this.progression = progression;
 	}
+	
 	
 	@Override
 	public String toString() {
@@ -52,5 +58,4 @@ public class LocVertex {
 				+ ", locationType=" + locationType + ", progression="
 				+ progression + "]";
 	}
-
 }
