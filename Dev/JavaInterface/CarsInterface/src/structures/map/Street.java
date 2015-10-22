@@ -45,6 +45,10 @@ public class Street {
 		return oneway;
 	}
 	
+	public ArrayList<String> getPath() {
+		return path;
+	}
+	
 	//***************** SETTERS ******************//
 	public void setName(String _myStreetName) {
 		name = _myStreetName;
@@ -62,10 +66,6 @@ public class Street {
 		oneway = _oneWay;
 	}
 
-	public ArrayList<String> getPath() {
-		return path;
-	}
-
 	public void setPath(ArrayList<String> path) {
 		this.path = path;
 	}
@@ -76,5 +76,4 @@ public class Street {
 				+ ", secondVertice=" + secondVertice + ", path=" + path
 				+ ", oneway=" + oneway + "]";
 	}
-	
 }

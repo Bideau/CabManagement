@@ -22,7 +22,16 @@ public class Map extends JPanel implements MouseListener{
 	private Area area;
 	private StreetDrawer streetPainter;
 	private VertexDrawer vertexPainter;
+	private BridgeDrawer bridgePainter;
 	private CabDrawer cabPainter;
+
+	public CabDrawer getCabPainter() {
+		return cabPainter;
+	}
+
+	public void setCabPainter(CabDrawer cabPainter) {
+		this.cabPainter = cabPainter;
+	}
 
 	private static double VertexHeight = 30.0;
 	private static double VertexWidth = 30.0;
@@ -40,11 +49,12 @@ public class Map extends JPanel implements MouseListener{
 
 		this.streetPainter = new StreetDrawer(this.area, VertexWidth, VertexHeight, xMaxPixels, yMaxPixels);
 		this.vertexPainter = new VertexDrawer(this.area, VertexWidth, VertexHeight, xMaxPixels, yMaxPixels);
-		this.cabPainter = new CabDrawer();
+		this.bridgePainter = new BridgeDrawer(this.area, VertexWidth, VertexHeight, xMaxPixels, yMaxPixels);
+		this.cabPainter = new CabDrawer(this.area, xMaxPixels, yMaxPixels);
 	}
 
 	public void paintComponent(Graphics g){
-
+		
 		super.paintComponent(g);
 		Graphics2D g2d;
 		g2d = (Graphics2D) g.create();
@@ -55,16 +65,19 @@ public class Map extends JPanel implements MouseListener{
 		// Draw the streets
 		this.streetPainter.paintStreets(g2d);
 
+		// Draw the streets
+		this.bridgePainter.paintBridge(g2d);
+
 		// Draw the vertices
 		this.vertexPainter.paintVertices(g2d);
-
-		//receiveAndUpdateCabPosition(0.5, 0.5);
 
 		// Draw the Cab
 		this.cabPainter.paintCab(g2d);
 
-		System.out.println("--------------------------");
 		
+		
+		System.out.println("------------ End Painter --------------");
+
 		g2d.dispose();
 	}
 
@@ -85,16 +98,16 @@ public class Map extends JPanel implements MouseListener{
 
 			vertexX = vertexX * xMaxPixels;
 			vertexY = vertexY * yMaxPixels;
-			
+
 			System.out.println("XXXX : " + vertexX);
 			System.out.println("YYYY : " + vertexY);
-			
+
 			// Calcul de la distance entre les deux points
 			distance = Math.sqrt(Math.pow(vertexX - _x,2) + Math.pow(vertexY - _y,2));
 			System.out.println("DISTANCE : " + distance);
 
 			System.out.println("NAME : " + this.area.getMap().getVertices().get(i).getName());
-			
+
 			// A less distance with a vertex is find
 			if(distance < lessDistance){
 				// Save the less distance
@@ -126,28 +139,18 @@ public class Map extends JPanel implements MouseListener{
 		}
 	}
 
-	public void mouseClicked( MouseEvent e ){
+	public void mouseClicked( MouseEvent e ){}
 
-	}
+	public void mouseEntered(MouseEvent arg0){}
+	
+	public void mouseExited(MouseEvent arg0){}
 
-	public void mouseEntered(MouseEvent arg0) {
+	public void mousePressed(MouseEvent arg0){}
+
+	public void mouseReleased(MouseEvent e){
 		// TODO Auto-generated method stub
-
-	}
-
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		int x,y;
+		int x = 0;
+		int y = 0;
 
 		// Clique gauche de la souris
 		if(e.getButton()==MouseEvent.BUTTON1){
@@ -158,6 +161,5 @@ public class Map extends JPanel implements MouseListener{
 
 			sendNearVertex(x,y);
 		}
-
 	}
 }

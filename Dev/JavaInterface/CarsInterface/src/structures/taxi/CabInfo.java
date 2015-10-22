@@ -7,6 +7,7 @@ public class CabInfo {
 	private LocVertex locNow;
 	private LocVertex locNext;
 
+	// Default constructor
 	public CabInfo() {
 		odometer=0;
 		destination=new CabRequest();
@@ -14,32 +15,36 @@ public class CabInfo {
 		locNext=new LocVertex();
 	}
 
+	//***************** GETTERS **************//
+	
 	public int getOdometer() {
 		return odometer;
 	}
-
-	public void setOdometer(int odometer) {
-		this.odometer = odometer;
-	}
-
+	
 	public CabRequest getDestination() {
 		return destination;
+	}
+	
+	public LocVertex getLocNow() {
+		return locNow;
+	}
+	
+	public LocVertex getLocNext() {
+		return locNext;
+	}
+
+	//************** SETTERS **************//
+	
+	public void setOdometer(int odometer) {
+		this.odometer = odometer;
 	}
 
 	public void setDestination(CabRequest destination) {
 		this.destination = destination;
 	}
-
-	public LocVertex getLocNow() {
-		return locNow;
-	}
-
+	
 	public void setLocNow(LocVertex locNow) {
 		this.locNow = locNow;
-	}
-
-	public LocVertex getLocNext() {
-		return locNext;
 	}
 
 	public void setLocNext(LocVertex locNext) {
@@ -51,5 +56,4 @@ public class CabInfo {
 		return "CabInfo [odometer=" + odometer + ", destination=" + destination
 				+ ", locNow=" + locNow + ", locNext=" + locNext + "]";
 	}
-
 }
