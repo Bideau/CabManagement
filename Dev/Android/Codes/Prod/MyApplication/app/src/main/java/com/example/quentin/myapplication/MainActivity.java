@@ -1,29 +1,42 @@
 package com.example.quentin.myapplication;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.example.quentin.myapplication.Network.WebSocket;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends Activity{
 
     private WebSocket webSocket;
     private Drawer drawer;
+    //private String url = "ws://192.168.3.65:8000";
     private String url = "ws://172.30.0.193:8000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
 
         initAll();
     }
 
     private void initAll() {
         // Init drawer
-        drawer = new Drawer();
+        drawer = new Drawer(this);
+        setContentView(drawer);
+        drawer.requestLayout();
+        drawer.requestFocus();
 
         // Init communication
         webSocket = new WebSocket();
@@ -36,18 +49,8 @@ public class MainActivity extends Activity{
         }
         // For getting all areas
         webSocket.send("Initialisation");
+        drawer.wbSocket = webSocket;
 
-        /*DEBUG
-
-        String JsonS = "{ \"areas\": [ { \"name\": \"Quartier Nord\", \"map\": { \"weight\": {\"w\": 1, \"h\": 1}, \"vertices\": [ {\"name\": \"m\", \"x\": 0.5, \"y\": 0.5}, {\"name\": \"b\", \"x\": 0.5, \"y\": 1} ], \"streets\": [ {\"name\": \"mb\", \"path\": [\"m\", \"b\"], \"oneway\": false} ], \"bridges\": [ { \"from\": \"b\", \"to\": { \"area\": \"Quartier Sud\", \"vertex\": \"h\"}, \"weight\": 2 } ] } }, { \"name\": \"Quartier Sud\", \"map\": { \"weight\": {\"w\": 1, \"h\": 1}, \"vertices\": [ {\"name\": \"a\", \"x\": 1, \"y\": 1}, {\"name\": \"m\", \"x\": 0, \"y\": 1}, {\"name\": \"h\", \"x\": 0.5, \"y\": 0} ], \"streets\": [ {\"name\": \"ah\", \"path\": [\"a\", \"h\"], \"oneway\": false}, {\"name\": \"mh\", \"path\": [\"m\", \"h\"], \"oneway\": false} ], \"bridges\": [ { \"from\": \"h\", \"to\": { \"area\": \"Quartier Nord\", \"vertex\": \"b\"}, \"weight\": 2 } ] } } ] }";
-        try {
-            JSONObject jo = new JSONObject(JsonS);
-            drawer.loadMap(jo);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        */
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.quentin.myapplication.structures;
+package com.example.quentin.myapplication.structures.map;
 
 public class Dest {
 	private String area;
