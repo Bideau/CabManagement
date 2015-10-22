@@ -62,9 +62,22 @@ la position du taxi.
 Durant cette boucle d'attente on peut également envoyer des message de type "CabRequest" en cliquant
 sur la carte. On envoi alors le vertex le plus proche du clic.
 
-Librairies :
+#################################Librairies###################################
+
+Android:
+
+WebSocket : https://github.com/TooTallNate/Java-WebSocket
+
+
+Galileo:
+
+JSONParser : https://github.com/interactive-matter/aJson
+
+WebSocket : https://github.com/krohling/ArduinoWebsocketClient
+
+
+Java: 
 
 Jetty : http://download.eclipse.org/jetty/
+
 WebSocket : http://mvnrepository.com/artifact/org.cometd.java
-
-
