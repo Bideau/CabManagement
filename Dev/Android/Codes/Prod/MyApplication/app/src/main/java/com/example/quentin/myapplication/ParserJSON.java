@@ -18,7 +18,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 // All structures
-import com.example.quentin.myapplication.structures.*;
+import com.example.quentin.myapplication.structures.map.*;
 
 public class ParserJSON {
 
@@ -88,7 +88,7 @@ public class ParserJSON {
 	private Bridge parsingBridge(Area myArea,Bridge myBridge){
 
 		for(Vertex tempVert:myArea.getMap().getVertices()){
-			if(myBridge.getFrom().equals(tempVert.getName())){
+			if(myBridge.getSrc().equals(tempVert.getName())){
 				myBridge.setFromVertice(tempVert);
 			}
 		}
