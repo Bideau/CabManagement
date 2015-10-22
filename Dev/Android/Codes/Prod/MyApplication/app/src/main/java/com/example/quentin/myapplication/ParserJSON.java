@@ -6,14 +6,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+// Jackson lib to put the JSON's information in a object
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+
+// Json.Simple lib to parse the differents areas before use Jackson lib
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+// All structures
 import com.example.quentin.myapplication.structures.*;
 
 public class ParserJSON {
@@ -23,22 +27,27 @@ public class ParserJSON {
 	private ObjectMapper mapper;
 	private ArrayList<Area> listArea;
 
+
+    // Default constructor
 	public ParserJSON(){
 		this("Default");
 	}
 
+    // Overload constructor
 	public ParserJSON(String jsonFrame){
-		// Path Test
 		mapper = new ObjectMapper();
 		this.listArea = new ArrayList<Area>();
-		//jsonFrame = "/media/guinux/Data/Cours/Actuel/IntMobile/CabManagement/Dev/JavaInterface/json/test.json";
 		this.MyJsonFrame = jsonFrame;
 
 	}
 
-	private Area parsingArea(String area) throws ParseException, JsonParseException, JsonMappingException, IOException{ 
-		//System.out.println(area);
+	private Area parsingArea(String area) throws ParseException, JsonParseException, JsonMappingException, IOException{
+
+
+        // Jackson lib function to put the JSON's informations in an object
 		Area myArea = mapper.readValue(area, Area.class);
+
+        // Parsing streets and bridges in another functions
 		for(Street tmpStreet:myArea.getMap().getStreets()){
 			parsingStreets(myArea, tmpStreet);
 		}
@@ -93,7 +102,7 @@ public class ParserJSON {
 		JSONObject jsonObject= new JSONObject();
 		try {
 			//Get file data
-			//JsonText=fileRead();
+            //JsonText=fileRead(); // DEBUG
 			obj = parser.parse(JsonText);
 			jsonObject =  (JSONObject) obj;
 			//Parsing for areas
@@ -137,10 +146,4 @@ public class ParserJSON {
 	public void setListArea(ArrayList<Area> listArea) {
 		this.listArea = listArea;
 	}
-
-	/*public static void main(String[] args){
-		ParserJSON MyParser = new ParserJSON("toto");
-		MyParser.parsingFrame();
-	}*/
-
 }

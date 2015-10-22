@@ -32,6 +32,12 @@ public class Street {
 		this.oneway = _oneWay;
 	}
 
+    @Override
+    public String toString() {
+        return "Street [name=" + name + ", firstVertice=" + firstVertice
+                + ", secondVertice=" + secondVertice + ", path=" + path
+                + ", oneway=" + oneway + "]";
+    }
 
 	//**************** GETTERS *******************//
 	public String getName() {
@@ -49,6 +55,10 @@ public class Street {
 	public boolean isOneway() {
 		return oneway;
 	}
+
+    public ArrayList<String> getPath() {
+        return path;
+    }
 	
 	//***************** SETTERS ******************//
 	public void setName(String _myStreetName) {
@@ -67,19 +77,7 @@ public class Street {
 		oneway = _oneWay;
 	}
 
-	public ArrayList<String> getPath() {
-		return path;
-	}
-
 	public void setPath(ArrayList<String> path) {
 		this.path = path;
 	}
-
-	@Override
-	public String toString() {
-		return "Street [name=" + name + ", firstVertice=" + firstVertice
-				+ ", secondVertice=" + secondVertice + ", path=" + path
-				+ ", oneway=" + oneway + "]";
-	}
-	
 }

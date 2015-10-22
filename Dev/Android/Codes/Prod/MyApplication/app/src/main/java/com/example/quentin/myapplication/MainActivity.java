@@ -1,33 +1,21 @@
 package com.example.quentin.myapplication;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-
 import com.example.quentin.myapplication.Network.WebSocket;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends Activity{
 
     private WebSocket webSocket;
     private Drawer drawer;
-    //private String url = "ws://192.168.3.65:8000";
-    private String url = "ws://172.30.0.193:8000";
+    //private String url = "ws://192.168.3.65:8000"; //Rasberry Pi URI
+    private String url = "ws://172.30.0.193:8000"; // Test Server URI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-
         initAll();
     }
 
@@ -42,6 +30,8 @@ public class MainActivity extends Activity{
         webSocket = new WebSocket();
         webSocket.delegate = drawer;
         webSocket.execute(url);
+
+        // Wait a little until the connection is complete
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -50,7 +40,6 @@ public class MainActivity extends Activity{
         // For getting all areas
         webSocket.send("Initialisation");
         drawer.wbSocket = webSocket;
-
     }
 
     @Override

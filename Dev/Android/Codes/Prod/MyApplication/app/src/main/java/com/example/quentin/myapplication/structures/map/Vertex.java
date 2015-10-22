@@ -20,37 +20,37 @@ public class Vertex {
 		this.y = _y;
 	}
 
-	// ****************** GETTERS ****************//
+    @Override
+    public String toString() {
+        return "Vertex [name=" + name + ", x=" + x + ", y=" + y + "]";
+    }
+
+
+    // ****************** GETTERS ****************//
+
 	public String getName() {
 		return name;
 	}
-	
+
+    public double getY() {
+        return y;
+    }
+
+    public double getX() {
+        return x;
+    }
 
 	// ***************** SETTERS ****************//
+
 	public void setName(String _name) {
 		this.name = _name;
-	}
-
-	public double getX() {
-		return x;
 	}
 
 	public void setX(double x) {
 		this.x = x;
 	}
 
-	public double getY() {
-		return y;
-	}
-
 	public void setY(double y) {
 		this.y = y;
 	}
-
-	@Override
-	public String toString() {
-		return "Vertex [name=" + name + ", x=" + x + ", y=" + y + "]";
-	}
-	
-
 }
