@@ -40,7 +40,7 @@ public class Client {
 			Thread.sleep(2000);
 			
 			// Send "Initialisation" for get the map to draw
-			socket.sendString("Initialisation");
+			//socket.sendString("TOTO");
 			
 			// Loop awaiting receipt and sending
 			while(socket.isSocketOpened()){

@@ -58,11 +58,11 @@ public class SocketIO {
 	public void onConnect(Session session) {
 		System.out.printf("Got connect: %s%n", session);
 		this.session = session;
-		try {
+		/*try {
 			sendString("I'm connected !");
 		} catch (Throwable t) {
 			t.printStackTrace();
-		}
+		}*/
 	}
 
 	// The onMessage(String msg) receives the responses from the remote server WebSocket
@@ -100,7 +100,7 @@ public class SocketIO {
 
 	// Draw Initialize map
 	public void ReceiveInitialize(String msg){
-		System.out.println("Json\n");
+		System.out.println("Receive Initialize\n");
 
 		// Create a new object for parse the initialize String JSON
 		ParserJSON parserJson = new ParserJSON();
@@ -117,6 +117,8 @@ public class SocketIO {
 	// This function receive the CabInfo JSON trame
 	public void ReceiveCabInfo(String msg){
 
+		System.out.println("Receive Cab Info");
+		
 		// Create a new object for parse the initialize String JSON
 		ParserCabInfo parserTaxi = new ParserCabInfo();
 		

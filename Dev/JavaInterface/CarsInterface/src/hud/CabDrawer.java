@@ -19,23 +19,23 @@ public class CabDrawer implements ImageObserver {
 
 	private static double CabWidth = 100;
 	private static double CabHeight = 55;
-	
+
 	private int xOffsetCab = 30;
 	private int yOffsetCab = 13;
 
 	private double x;
 	private double y;
-	
+
 	private int xMaxPixels;
 	private int yMaxPixels;
-	
+
 	private int positionRatioBetweenTwoVertex;
-	
+
 	private double vertexOrigineX;
 	private double vertexOrigineY;
 	private double vertexDestX;
 	private double vertexDestY;
-	
+
 	// Default constructor
 	public CabDrawer(){
 		this.x = 10000.0;
@@ -44,15 +44,15 @@ public class CabDrawer implements ImageObserver {
 
 	// Overload constructor
 	public CabDrawer(Area area, int xMaxPixels, int yMaxPixels){
-		
+
 		// Initialization of the variables
 		this.x = 10000.0;
 		this.y = 10000.0;
 		this.area = area;
-		
+
 		this.xMaxPixels = xMaxPixels;
 		this.yMaxPixels = yMaxPixels;
-		
+
 		this.vertexOrigineX = 0.0;
 		this.vertexOrigineY = 0.0;
 		this.vertexDestX = 0.0;
@@ -67,27 +67,34 @@ public class CabDrawer implements ImageObserver {
 	// Function which analyze and draw the informations of the CabInfo
 	public void paintCab(Graphics2D g2d){
 
-		// Name of the area of the cab informations must be the same as that of the area
-		if(this.cabInfo.getLocNow().getArea().equals(this.area.getName())){
-			// Function analyze and return the coordonates of the two vertex (Now and Next)
-			getInformationFromCabInfo();
+		// Get informations of Cab if we have receive a CabInfo
+		if(this.cabInfo != null){
+			// Name of the area of the cab informations must be the same as that of the area
+			if(this.cabInfo.getLocNow().getArea().equals(this.area.getName())){
+				// Function analyze and return the coordonates of the two vertex (Now and Next)
+				getInformationFromCabInfo();
+			}
+		}else{
+			this.vertexOrigineX = 0.0;
+			this.vertexOrigineY = 0.0;
+			this.positionRatioBetweenTwoVertex = 1;
 		}
-		
+
 		// Place the cab on the street between the two vertex
 		this.x = this.positionRatioBetweenTwoVertex * (this.vertexDestX - this.vertexOrigineX);
 		this.y = this.positionRatioBetweenTwoVertex * (this.vertexDestY - this.vertexOrigineY);
-		
+
 		this.x = this.x + vertexOrigineX;
 		this.y = this.y + vertexOrigineY;
-		
+
 		// Scaling for frame
 		this.x = Math.abs(this.x * this.xMaxPixels) - this.xOffsetCab;
 		this.y = Math.abs(this.y * this.yMaxPixels) - this.yOffsetCab;
-		
+
 		System.out.println("x : " + this.x + "\ny : " + this.y);
-		
+
 		System.out.println("DOLOREAN DRAWER");
-		
+
 		try {
 			Image dbImage = ImageIO.read(new File("img/dolorean_droite.png"));
 			g2d.drawImage(dbImage, (int)this.x, (int)this.y, (int)CabWidth, (int)CabHeight,this);
@@ -95,7 +102,7 @@ public class CabDrawer implements ImageObserver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		// RECTANGLE		10.0,10.0,20.0,20.0
 		// x - y
 		// Longueur - Hauteur
@@ -107,8 +114,8 @@ public class CabDrawer implements ImageObserver {
 		//g2d.fill(cab);
 		//g2d.setColor(new Color(Integer.parseInt("FF0000",16)));
 		//g2d.draw(_cab);
-		
-		
+
+
 	}
 
 	public void getInformationFromCabInfo(){
@@ -134,13 +141,13 @@ public class CabDrawer implements ImageObserver {
 				System.out.println("Dest Y : " + this.vertexDestY);
 			}
 		}
-		
+
 		// Get the progression between the two vertex
 		this.positionRatioBetweenTwoVertex = this.cabInfo.getLocNow().getProgression();
 	}
 
 	//********************** GETTERS ********************//
-	
+
 	public double getX() {
 		return x;
 	}
@@ -148,9 +155,9 @@ public class CabDrawer implements ImageObserver {
 	public double getY() {
 		return y;
 	}
-	
+
 	//********************* SETTERS *********************//
-	
+
 	public void setX(double x) {
 		this.x = x;
 	}
