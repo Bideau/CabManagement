@@ -20,11 +20,19 @@ boolean cabBusy = false;
 
 // All connection values
 byte mac[] = { 0x98, 0x4F, 0xEE, 0x05, 0x37, 0xE3 };
-char server[] = "echo.websocket.org";
+IPAddress ip(192, 168, 2, 10); // Ip address
+IPAddress dnServer(192, 168, 2, 1); // Dns
+IPAddress gateway(192, 168, 2, 2); // Gateway
+IPAddress subnet(255, 255, 255, 0); // Subnet
+char server[] = "192.168.2.2";
+char rejected[] = "{\"answer\":\"false\"}";
+char accepted[] = "{\"answer\":\"true\"}";
+int port = 8000;
 WebSocketClient client;
 
 int customers;
-boolean cabState;
+boolean boolCabState = true;
+String cabState;
 int distance;
 aJsonObject *answer;
 
@@ -38,7 +46,7 @@ void setCabStatus(){
 
   // State
   lcd.setCursor(4,0);
-  if(cabState == true){
+  if(boolCabState == true){
     lcd.print("Free");
   }else{
     lcd.print("Busy");
@@ -52,7 +60,7 @@ void setCabStatus(){
 
   // Buttons
   lcd.setCursor(0,1);
-  if(cabState == true){
+  if(boolCabState == true){
     lcd.print("Accept");
     lcd.setCursor(10,1);
     lcd.print("Reject");
@@ -80,8 +88,8 @@ void initLCD(){
  * Initialization and connection to the server
  */
 void webSocketInitializer(){
-  Ethernet.begin(mac);
-  client.connect(server);
+  Ethernet.begin(mac, ip, dnServer, gateway, subnet);
+  client.connect(server, port);
   client.onOpen(onOpen);
   client.onMessage(onMessage);
   client.onError(onError);
@@ -93,6 +101,7 @@ void webSocketInitializer(){
  */
 void onOpen(WebSocketClient client) {
   Serial.println("Connected");
+  client.send("Galileo connected");
 }
 
 /*
@@ -108,9 +117,25 @@ void onMessage(WebSocketClient client, char* message) {
   aJsonObject* cabstatus = aJson.getObjectItem(jsonObject , "cabStatus");
   aJsonObject* distanceTravelled = aJson.getObjectItem(jsonObject , "distanceTravelled");
   customers = numberOfClients->valueint;
-  cabState = cabstatus->valuebool;
+  
+  cabState = cabstatus->valuestring;
+  if(cabState.equals("free")){
+    boolCabState = true;
+  }else{
+    boolCabState = false;
+  }
+  
+  
   distance = distanceTravelled->valueint;
 
+  
+  Serial.print("Values received: ");
+  Serial.print(customers);
+  Serial.print(cabState);
+  Serial.print("->");
+  Serial.print(boolCabState);
+  Serial.print(distance);
+  
   
   // Refresh LCD with new information
   setCabStatus();
@@ -150,7 +175,6 @@ void setup() {
   Serial.begin(9600);
   Serial.println("setup()");
   webSocketInitializer();
-  client.send("Hello World!");
 }
 
 /*
@@ -158,25 +182,30 @@ void setup() {
  */
 void loop() {
   client.monitor();
-  if(cabBusy == false){
+  //if(boolCabState == false){
     lcdKey = read_LCD_buttons();
     switch (lcdKey){
       case btnRIGHT:{
+        Serial.println("RIGHT BUTTON -> Reject");
         // Transform decline into JSON
-        answer=aJson.createObject();
-        aJson.addItemToObject(answer, "answer", aJson.createItem("false"));
+        //answer=aJson.createObject();
+        //aJson.addItemToObject(answer, "answer", aJson.createItem("false"));
 
         // Send decline
-        client.send(answer->valuestring);
+        //client.send(answer->valuestring);
+        client.send(rejected);
         break;
       }
       case btnLEFT:{
+        
+        Serial.println("LEFT BUTTON -> Accept");
         // Transform accept into JSON
-        answer=aJson.createObject();
-        aJson.addItemToObject(answer, "answer", aJson.createItem("true"));
+        //answer=aJson.createObject();
+        //aJson.addItemToObject(answer, "answer", aJson.createItem("true"));
         
         // Send accept
-        client.send(answer->valuestring);
+        //client.send(answer->valuestring);
+        client.send(accepted);
         break;
       }
       default:{
@@ -184,5 +213,5 @@ void loop() {
         break;
       }
     }
-  }
+ // }
 }
