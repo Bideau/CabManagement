@@ -9,3 +9,5 @@ class Area:
             self.name = value['name']
         if 'map' in value:   
             self.map.parsing(value['map'])
+    def __str__(self):
+        return "Name : %s ; Map : %s" % (self.name,self.map)

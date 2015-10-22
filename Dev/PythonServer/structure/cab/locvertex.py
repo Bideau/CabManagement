@@ -3,7 +3,7 @@ class LocVertex:
         self.area = ''
         self.location = ''
         self.locationType = ''
-        self.progression = 0
+        self.progression = 1
     def parsing(self,value):
         if 'area' in value:
             self.area = value['area']
@@ -13,3 +13,14 @@ class LocVertex:
             self.locationType = value['locationType']
         if 'progression' in value:
             self.progression = value['progression']
+    def __eq__(self,other):
+        test=True
+        if self.area != other.area:
+            test=False
+        if self.location != other.location:
+            test=False
+        if self.locationType != other.locationType:
+            test=False
+        if self.progression != other.progression:
+            test=False
+        return test

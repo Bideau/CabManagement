@@ -1,7 +1,7 @@
 class Street:
     def __init__(self):
         self.name = ''
-        self.oneway = 'false'
+        self.oneway =False
         self.path = []
     def parsing (self,value):
         if 'name' in value:
