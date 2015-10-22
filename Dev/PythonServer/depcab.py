@@ -1,44 +1,41 @@
 from structure.cab import CabStatus
 import dijkstra
 class DepCab:
-    def __init__(self):
-        path =[]
+    def __init__(self,progress):
+        self.progress=progress
 
     # move the cab on the street 
-    def moveCab(self,cab):
+    def moveCab(self,cab,path):
+        verif = False
         if isinstance(cab,CabStatus):
             if cab.cabinfo.locNow.progression < 1:
-                cab.cabinfo.locNow.progression= cab.cabinfo.locNow.progression +0.2
+                cab.cabinfo.locNow.progression= cab.cabinfo.locNow.progression +progress
             else:
                 if cab.cabinfo.locNow == cab.cabinfo.destination.location:
                     cab.status='free'
+                    verif = True
                 else:
                     cab.cabinfo.locNow = cab.cabinfo.locNext
                     cab.cabinfo.locNow.progression =0
                     cab.cabinfo.locNext=path[0]
                     del path[0]
+        return verif
 
     # Call the dijskstra function to find the path
     def dijCall(self,cab,area):                
         dic ={}
+        # Getting area local
         for i in area:
             if cab.cabinfo.locNow.area == i.name:
                 tmpArea = i
         if isinstance(cab,CabStatus):
             tmpStart = "%s@%s" % (cab.cabinfo.locNow.location,cab.cabinfo.locNow.area)
             tmpEnd = "%s@%s" % (cab.cabinfo.destination.location.location,cab.cabinfo.destination.area)
-            print tmpStart
-            print tmpEnd
             if cab.cabinfo.locNow.area == cab.cabinfo.destination.area:
                 dic=self.dicCrea()
-                print dic
-                print dijkstra.dij_rec(dic,tmpStart,tmpEnd)
             else:
                 dic=self.dicCreaArea(area)    
-                #tmpDic=self.dicCrea(i)
-                    #dic = dict(dic.items() + tmpDic.items())
-                print dic
-                print dijkstra.dij_rec(dic,tmpStart,tmpEnd)
+            return dijkstra.dij_rec(dic,tmpStart,tmpEnd)
             
     # Create the dictionnaire 
     def dicCrea(self,area):
