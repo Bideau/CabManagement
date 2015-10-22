@@ -45,6 +45,8 @@ public class SocketIO {
 		return this.closeLatch.await(duration, unit);
 	}
 
+	
+	
 	// Function to close the connection with the server
 	@OnWebSocketClose
 	public void onClose(int statusCode, String reason) {

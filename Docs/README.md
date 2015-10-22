@@ -17,7 +17,7 @@ The Galileo show all server information on it's own LCD screen.
 An accepted/declined message can be send to the server with Left/Right button to accept/reject a cabRequest.
 
 
-Pytjon server :
+Python server :
 
 To use the librairy Simple-Websocket-server you need to go on the folder simple-websocket-server-master/
 And execute the folling command has super user 'python setup.py install'
@@ -61,3 +61,10 @@ la position du taxi.
 
 Durant cette boucle d'attente on peut également envoyer des message de type "CabRequest" en cliquant
 sur la carte. On envoi alors le vertex le plus proche du clic.
+
+Librairies :
+
+Jetty : http://download.eclipse.org/jetty/
+WebSocket : http://mvnrepository.com/artifact/org.cometd.java
+
+

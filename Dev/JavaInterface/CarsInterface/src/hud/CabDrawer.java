@@ -17,10 +17,10 @@ public class CabDrawer implements ImageObserver {
 	private Area area;
 	private CabInfo cabInfo;
 
-	private static double CabWidth = 100;
+	private static double CabWidth = 110;
 	private static double CabHeight = 55;
 
-	private int xOffsetCab = 30;
+	private int xOffsetCab = 32;
 	private int yOffsetCab = 13;
 
 	private double x;
@@ -73,24 +73,26 @@ public class CabDrawer implements ImageObserver {
 			if(this.cabInfo.getLocNow().getArea().equals(this.area.getName())){
 				// Function analyze and return the coordonates of the two vertex (Now and Next)
 				getInformationFromCabInfo();
+
+				// Place the cab on the street between the two vertex
+				this.x = this.positionRatioBetweenTwoVertex * (this.vertexDestX - this.vertexOrigineX);
+				this.y = this.positionRatioBetweenTwoVertex * (this.vertexDestY - this.vertexOrigineY);
+
+				this.x = this.x + vertexOrigineX;
+				this.y = this.y + vertexOrigineY;
+
+				// Scaling for frame
+				this.x = Math.abs(this.x * this.xMaxPixels) - this.xOffsetCab;
+				this.y = Math.abs(this.y * this.yMaxPixels) - this.yOffsetCab;
+				
 			}
 		}else{
-			this.vertexOrigineX = 0.0;
-			this.vertexOrigineY = 0.0;
+			
+			// Default point in top left
+			this.x = xOffsetCab;
+			this.y = yOffsetCab;
 			this.positionRatioBetweenTwoVertex = 1;
 		}
-
-		// Place the cab on the street between the two vertex
-		this.x = this.positionRatioBetweenTwoVertex * (this.vertexDestX - this.vertexOrigineX);
-		this.y = this.positionRatioBetweenTwoVertex * (this.vertexDestY - this.vertexOrigineY);
-
-		this.x = this.x + vertexOrigineX;
-		this.y = this.y + vertexOrigineY;
-
-		// Scaling for frame
-		this.x = Math.abs(this.x * this.xMaxPixels) - this.xOffsetCab;
-		this.y = Math.abs(this.y * this.yMaxPixels) - this.yOffsetCab;
-
 		System.out.println("x : " + this.x + "\ny : " + this.y);
 
 		System.out.println("DOLOREAN DRAWER");
