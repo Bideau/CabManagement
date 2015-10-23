@@ -4,4 +4,4 @@
 
 # Suppression bin Eclipse
 bin/
-
+*.pyc
