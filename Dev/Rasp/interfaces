@@ -1,0 +1,35 @@
+auto lo
+iface lo inet loopback
+
+#auto eth0
+#allow-hotplug eth0
+iface eth0 inet static
+	address 192.168.3.1
+	netmask 255.255.255.0
+	network 192.168.3.0
+	broadcast 192.168.3.255
+	up route add -host 255.255.255.255 eth0
+#
+#auto wlan0
+#allow-hotplug wlan0
+iface wlan0 inet static
+	address 192.168.4.1
+	netmask 255.255.255.0
+	network 192.168.4.0
+	broadcast 192.168.4.255
+	up route add -host 255.255.255.255 eth0
+#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
+#auto br0
+#iface br0 inet dhcp
+#bridge_fd 1
+#bridge_hello 3
+#bridge_maxage 10
+#bridge_stp off
+#bridge_ports eth0 wlan0
+
+#auto wlan1
+#allow-hotplug wlan1
+#iface wlan1 inet manual
+#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
