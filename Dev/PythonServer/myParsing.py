@@ -35,17 +35,18 @@ class myParsing:
         test = CabInfo()
         test.parsing(json_data)
         tmpCab.cabinfo=test
+        tmpCab.status='free'
         self.cabList.append(tmpCab)
         return tmpCab
 
     # Parsing function of a cab request
     def parsingCabReq(self,myJSON):
+	print 'Parsing req cab'
         json_data = json.loads(myJSON)
         tmpCab = CabRequest()
         tmpCab.parsing(json_data)
         # Adding to the cab request list
         self.request(tmpCab)
-        self.calcPath(self.carte,self.cabList[0])
         return tmpCab
 
     # Add a new request to the list 
@@ -57,19 +58,29 @@ class myParsing:
     # Return true if status update
     # Return false if error or cab busy
     def parsingRepArdui(self,myJSON,cab):
-        json_data = json.loads(myJSON)
-        verif=False
-        if 'answer' in json_data:
-            if isinstance(cab,CabStatus):
-                if cab.status == 'free':
-                    if len(listRequest) > 0:
-                        if json_data[answer] == 'true':
-                            cab.status='busy'
-                            cab.cabinfo.destination = listRequest[0]
-                            cab.cabinfo.odometer = 0
-                            verif=True
-                        del listRequest[0]
-        return verif
+	print 'Parsing req ardui'
+	print myJSON
+	print self.listRequest
+	try:
+        	json_data = json.loads(myJSON)
+	except ValueError, e:
+        	verif=False
+	else:
+                print 'verif arduino'
+        	verif=False
+        	if 'answer' in json_data:
+            		if isinstance(cab,CabStatus):
+                		if cab.status == 'free':
+                    			if len(self.listRequest) > 0:
+						print json_data['answer']
+                        			if json_data['answer'] == 'true':
+                            				cab.status='busy'
+                            				cab.cabinfo.destination = self.listRequest[0]
+                            				cab.cabinfo.odometer = 0
+                            				verif=True
+                        			del self.listRequest[0]
+	print 'Verif %s' % verif
+	return verif
     
     # Creating path
     def calcPath(self, area,cab):

@@ -29,11 +29,6 @@ def plus_court(graphe,etape,fin,visites,dist,pere,depart):
     """
     # si on arrive à la fin, on affiche la distance et les peres
     if etape == fin:
-        print etape
-        print pere
-        print depart
-        print fin
-        print dist
         return dist[fin], affiche_peres(pere,depart,fin,[])
     # si c'est la première visite, c'est que l'étape actuelle est le départ : on met dist[etape] à 0
     if  len(visites) == 0 : dist[etape]=0
@@ -54,6 +49,7 @@ def plus_court(graphe,etape,fin,visites,dist,pere,depart):
     non_visites = dict((s, dist.get(s,float('inf'))) for s in graphe if s not in visites)
     noeud_plus_proche = min(non_visites, key = non_visites.get)
     # on applique récursivement en prenant comme nouvelle étape le sommet le plus proche 
+    print 'End path'
     return plus_court(graphe,noeud_plus_proche,fin,visites,dist,pere,depart)
  
 def dij_rec(graphe,debut,fin):
