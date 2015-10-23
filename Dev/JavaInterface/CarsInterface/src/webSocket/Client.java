@@ -11,21 +11,23 @@ import org.eclipse.jetty.websocket.api.StatusCode;
 public class Client {
 
 	private static SocketIO socket;
-	
+
 	// Main : The program starts here
 	public static void main(String[] args) {
-		
+
 		// IP adress and port of the Python server
 		String destUri = "ws://172.30.0.193:8000";
-		
+
 		// Take the informations of arguments if they are
 		if (args.length > 0) {
 			destUri = args[0];
 		}
-		
+
 		// Creation of webSocket
 		WebSocketClient client = new WebSocketClient();
 		socket = new SocketIO();
+
+		socket.getSession();
 
 		@SuppressWarnings("unused") Session session = null;
 		try {
@@ -36,23 +38,25 @@ public class Client {
 			// Connexion between client and server
 			client.connect(socket, echoUri, request);
 
+
 			// Wait 2s
 			Thread.sleep(2000);
-			
+
 			// Send "Initialisation" for get the map to draw
-			socket.sendString("Initialisation");
-			
+			//socket.sendString("TOTO");
+
 			// Loop awaiting receipt and sending
 			while(socket.isSocketOpened()){
 				// Wait 2s
 				Thread.sleep(2000);
+				System.out.println("...");
 			}
-			
+
 			System.out.println("Sortie de la boucle d'ecoute");
-			
+
 			// Close the connection with the Python server
 			socket.awaitClose(2, TimeUnit.SECONDS);
-			
+
 			socket.getSession().close(StatusCode.NORMAL, "I'm done");
 
 		} catch (Throwable t) {
@@ -74,30 +78,32 @@ public class Client {
 
 		// Creation of the JsonTrame
 		cabRequest = createJsonTrameForDestination(areaDestination, vertexDestination);
-		
+
 		// Send the Trame to the python server
 		Client.getSocket().sendString(cabRequest);
 	}
 
 	public String createJsonTrameForDestination(String area, String vertex){
-		String cabRequest;
+		String trameCabRequest;
+		String location;
+
+		location = "{\"area\": \"" + area + "\",\"locationType\": \"vertex\",\"location\": \"" + vertex +"\"}";
 
 		// Create the Json trame
-		cabRequest = "{\"area\": \"" + area +"\",\"vertex\": \"" + vertex + "\"}";
+		trameCabRequest = "{\"area\": \"" + area +"\",\"location\":"+location+"}";
 
-		System.out.println("cabRequest : " + cabRequest);
-		return cabRequest;
-
+		System.out.println("cabRequest : " + trameCabRequest);
+		return trameCabRequest;
 	}
-	
+
 	//**************** GETTERS ***************//
-	
+
 	public static SocketIO getSocket() {
 		return socket;
 	}
 
 	//**************** SETTERS ***************//
-	
+
 	public static void setSocket(SocketIO socket) {
 		Client.socket = socket;
 	}
